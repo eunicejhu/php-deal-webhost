@@ -4,13 +4,12 @@ require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
 
 if (!empty($_GET["logged_id"])) {
+   
     setcookie("login", "true", 0, '/');
     setcookie("logged_id", $_GET["logged_id"], 0, '/');
-
-    $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);    $user = $userController->fetchOne($_GET["logged_id"]);
+    $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+    $user = $userController->fetchOne($_GET["logged_id"]);
 }
-
-
 
 
 ?>
@@ -25,7 +24,8 @@ if (!empty($_GET["logged_id"])) {
     <title>Se connecter</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./profile.css" rel="stylesheet" />
-    <link href="./form/style.css" rel="stylesheet" />
+    <link href="../common/form/style.css" rel="stylesheet" />
+    <script src='../common/checkLoggedIn.js'></script>
 </head>
 
 <body>

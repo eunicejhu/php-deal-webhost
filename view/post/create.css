@@ -1,0 +1,25 @@
+div#wrapper {
+  min-width: 600px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+form {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+div.flex {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+section {
+  display: flex;
+  width: 49%;
+  flex-direction: column;
+}

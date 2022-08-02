@@ -12,5 +12,16 @@ function testTelephone(string $telephone)
     return preg_match('/^[\d]{6,12}$/i', $telephone);
 }
 
+function encode(string $str)
+{
+    return htmlentities($str);
+}
+
+function decode(string $str)
+
+{
+    return htmlentities($str);
+}
+
 
 ?>

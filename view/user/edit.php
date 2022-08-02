@@ -34,7 +34,8 @@ if (!(empty($_GET["id"]) || empty($user) || empty($_POST["pseudo"]) || empty($_P
     <title>Modifier</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./edit.css" rel="stylesheet" />
-    <link href="./form/style.css" rel="stylesheet" />
+    <link href="../common/form/style.css" rel="stylesheet" />
+    <script src='../common/checkLoggedIn.js'></script>
 </head>
 
 <body>

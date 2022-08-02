@@ -69,14 +69,17 @@ class UserModel
 
             if (password_verify($mdp, $result["mdp"])) {
                 header("Location: ../../view/user/profile.php?logged_id=" . $result["id_membre"]);
+                return $result;
             }
             else {
                 header("Location: ../../view/user/login.php?error=invalidMdp");
+                return null;
             }
         }
         catch (PDOException $error) {
 
             header("Location: ../../view/user/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            return null;
         }
     }
 
@@ -137,7 +140,6 @@ class UserModel
 
         try {
             $request = $this->pdo->prepare("UPDATE membre SET pseudo= :pseudo, mdp= :mdp, nom= :nom , prenom= :prenom , telephone= :telephone , email= :email , civilite= :civilite , statut= :statut , date_enregistrement= :date_enregistrement  WHERE id_membre=" . $id_membre . ";");
-            var_dump($request);
 
             $request->bindParam("pseudo", $pseudo, PDO::PARAM_STR);
             $request->bindParam(":mdp", $mdp, PDO::PARAM_STR);

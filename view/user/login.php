@@ -7,7 +7,8 @@ require_once("../../src/controller/UserController.php");
 
 if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"])) && $_POST["type"] == "login") {
     $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
-    $userController->login($_POST["pseudo"], $_POST["mdp"]);
+    $loggedUser = $userController->login($_POST["pseudo"], $_POST["mdp"]);
+
 }
 
 ?>
@@ -21,7 +22,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"])) && $_POST["type"] == "log
     <title>Se connecter</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./login.css" rel="stylesheet" />
-    <link href="./form/style.css" rel="stylesheet" />
+    <link href="../common/form/style.css" rel="stylesheet" />
 </head>
 
 <body>

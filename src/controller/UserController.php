@@ -64,8 +64,7 @@ class UserController
     public function login(string $pseudo, string $mdp)
     {
         $userModel = new UserModel();
-        $userModel->login($pseudo, $mdp);
-
+        return $userModel->login($pseudo, $mdp);
     }
 
     public function getNow()
