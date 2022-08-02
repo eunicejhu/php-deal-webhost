@@ -1,7 +1,13 @@
 <?php
+
+
+
 require_once("../../src/config/database.php");
 require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
+require_once("../../src/util/validate.php");
+
+
 
 const DEFAULT_STATUT = 0; // user
 
@@ -9,8 +15,8 @@ $isValid = true;
 $isValidMdp = true;
 
 if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["telephone"]) || empty($_POST["email"]) || empty($_POST["civilite"])) && $_POST["type"] == "create") {
-    $isValid = preg_match('/^[\d]{6,12}$/i', $_POST["telephone"]);
-    $isValidMdp = strlen($mdp) > 8 && strlen($mdp) < 14 && preg_match('/^[^"\'\\<>@]+$/i', $_POST["mdp"]);
+    $isValid = testTelephone($_POST["telephone"]);
+    $isValidMdp = testMdp($_POST["mdp"]);
     if ($isValid && $isValidMdp) {
         $userController = new UserController($_POST["pseudo"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["telephone"], $_POST["email"], $_POST["civilite"], DEFAULT_STATUT);
         $userController->create();
@@ -27,7 +33,9 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Inscription</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+
     <link href="./inscription.css" rel="stylesheet" />
+    <link href="./form/style.css" rel="stylesheet" />
 </head>
 
 <body>

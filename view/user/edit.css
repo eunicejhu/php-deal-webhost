@@ -1,5 +1,5 @@
 #edit {
-  width: 400px;
+  width: 600px;
   margin: 30px auto;
 }
 
@@ -15,8 +15,8 @@ form {
 form input,
 form label,
 form select {
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
 }
 
 input.invalid {
@@ -25,7 +25,7 @@ input.invalid {
 }
 
 input[type="submit"] {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 a {

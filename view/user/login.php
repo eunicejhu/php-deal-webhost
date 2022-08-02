@@ -21,6 +21,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"])) && $_POST["type"] == "log
     <title>Se connecter</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./login.css" rel="stylesheet" />
+    <link href="./form/style.css" rel="stylesheet" />
 </head>
 
 <body>

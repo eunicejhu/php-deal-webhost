@@ -25,6 +25,7 @@ if (!empty($_GET["logged_id"])) {
     <title>Se connecter</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./profile.css" rel="stylesheet" />
+    <link href="./form/style.css" rel="stylesheet" />
 </head>
 
 <body>
