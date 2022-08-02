@@ -2,6 +2,7 @@
 require_once("../../src/config/database.php");
 require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
+require_once("../../src/util/validate.php");
 
 if(!empty($_GET["id"])) {
     $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);    $user = $userController->fetchOne($_GET["id"]);
@@ -9,13 +10,13 @@ if(!empty($_GET["id"])) {
 
 const DEFAULT_STATUT = 0; // user
 
-$isValid = true;
+$isValidTelephone = true;
 $isValidMdp = true;
 
 if (!(empty($_GET["id"]) || empty($user) || empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["telephone"]) || empty($_POST["email"]) || empty($_POST["civilite"])) && $_POST["type"] == "edit") {
-    $isValid = preg_match('/^[\d]{6,12}$/i', $_POST["telephone"]);
-    $isValidMdp = preg_match('/^[a-zA-Z0-9!]{9,13}$/i', $_POST["mdp"]);
-    if ($isValid && $isValidMdp) {
+    $isValidTelephone = testTelephone($_POST["telephone"]);
+    $isValidMdp = testMdp($_POST["mdp"]);
+    if ($isValidTelephone && $isValidMdp) {
 
          $userController = new UserController($_POST["pseudo"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["telephone"], $_POST["email"], $_POST["civilite"], $user["statut"]);
         $userController->update($_GET["id"]);
@@ -54,7 +55,7 @@ if (!(empty($_GET["id"]) || empty($user) || empty($_POST["pseudo"]) || empty($_P
             <input id="email" name="email" type="email" value="<?php echo $user["email"] ?>" required />
             <label for="telephone">Votre téléphone (numéro, longeur entre 6 et 12)</label>
             <input id="telephone" name="telephone" type="text" value="<?php echo $user["telephone"] ?>"
-                class="<?php echo $isValid ? '' : 'invalid'; ?>" required />
+                class="<?php echo $isValidTelephone ? '' : 'invalid'; ?>" required />
             <label for="civilite">Votre civilité</label>
             <select id="civilite" name="civilite">
                 <option <?php echo $user["civilite"] == "m" ? "selected" : "" ?> value="m">Homme</option>

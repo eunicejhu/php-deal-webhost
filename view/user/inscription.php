@@ -1,23 +1,19 @@
 <?php
 
-
-
 require_once("../../src/config/database.php");
 require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
 require_once("../../src/util/validate.php");
 
-
-
 const DEFAULT_STATUT = 0; // user
 
-$isValid = true;
+$isValidTelephone = true;
 $isValidMdp = true;
 
 if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["telephone"]) || empty($_POST["email"]) || empty($_POST["civilite"])) && $_POST["type"] == "create") {
-    $isValid = testTelephone($_POST["telephone"]);
+    $isValidTelephone = testTelephone($_POST["telephone"]);
     $isValidMdp = testMdp($_POST["mdp"]);
-    if ($isValid && $isValidMdp) {
+    if ($isValidTelephone && $isValidMdp) {
         $userController = new UserController($_POST["pseudo"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["telephone"], $_POST["email"], $_POST["civilite"], DEFAULT_STATUT);
         $userController->create();
     }
@@ -53,7 +49,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
             <label for="email">Votre email</label>
             <input id="email" name="email" type="email" required />
             <label for="telephone">Votre téléphone (numéro, longeur entre 6 et 12)</label>
-            <input id="telephone" name="telephone" type="text" class="<?php echo $isValid ? '' : 'invalid'; ?>"
+            <input id="telephone" name="telephone" type="text" class="<?php echo $isValidTelephone ? '' : 'invalid'; ?>"
                 required />
             <label for="civilite">Votre civilité</label>
             <select id="civilite" name="civilite">
@@ -65,7 +61,6 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
             <input type="submit" value="Inscription" />
         </form>
     </div>
-
 </body>
 
 </html>
