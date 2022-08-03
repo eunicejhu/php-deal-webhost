@@ -6,7 +6,6 @@
 // require_once("../config/database.php");
 // require_once("../util/date.php");
 
-
 // $postModel = new PostModel();
 
 // // // -- fetchPage 
@@ -16,7 +15,7 @@
 //-- create
 
 // date_default_timezone_set("Europe/Paris");
-// $postModel->create("Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", "France", "Paris", '11 Avenue Richard', 75003, null, 1, 2); // pass
+// $postModel->create("Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", "photo1_lien", "France", "Paris", '11 Avenue Richard', 75003, null, 1, 2); // pass
 // $postModel->create("Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", "France", "Paris", '11 Avenue Richard', 75003, 25, 1, 2, date("Y-m-d H:i:s")); // pass
 
 //-- fetcheAll
@@ -35,7 +34,7 @@
 // -- update
 
 // date_default_timezone_set("Europe/Paris");
-// $postModel->update(3, "Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", "France", "Paris", '12 Avenue Richard', 75001, null, 1, 2);
+// $postModel->update(31, "Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", 2, "France", "Paris", "20 Avenue du l'opéra", 75001, null, 1);
 // $postModel->update(1, "isa", "z", "isa@icloud.com", "sdf"); // id=1 does not exist, nothing changed in Database, no error thrown
 //$postModel->update(12, "isa", "z", "isa@icloud.com", "sdf"); // id=12 exist, success
 //   $postModel->update(12, "isa", "z", "eunicejhu@gmail.com", "sdf"); // id=12 exist, update with a used email, Error thrown
@@ -52,7 +51,7 @@
 class PostModel
 {
     private PDO $pdo;
-    private const PAGE_LIMIT = 2;
+    private const PAGE_LIMIT = 10;
     private const OFFSET_DEFAULT = 0;
 
     public function __construct()
@@ -62,12 +61,13 @@ class PostModel
     }
 
 
-    public function create(string $titre, string $description_courte, string $description_longue, string $prix, string $photo, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $photo_id = null, ?int $categorie_id = null)
+    public function create(string $titre, string $description_courte, string $description_longue, string $prix, string $photo, int $photo_id, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $categorie_id = null)
     {
 
         $date_enregistrement = getNow();
 
         try {
+
             $request = $this->pdo->prepare("INSERT INTO announce(titre, description_courte,  description_longue,  prix,  photo,  pays,  ville,  adresse,  cp,  membre_id,  photo_id, categorie_id,  date_enregistrement) VALUES(:titre, :description_courte, :description_longue, :prix, :photo, :pays, :ville, :adresse, :cp, :membre_id, :photo_id, :categorie_id, :date_enregistrement)");
 
 
@@ -85,9 +85,11 @@ class PostModel
             $request->bindParam(":categorie_id", $categorie_id);
             $request->bindParam(":date_enregistrement", $date_enregistrement);
 
+
+
             $request->execute();
 
-            header("Location: ../../view/post/list.php");
+            header("Location: ../../index.php");
 
         }
         catch (PDOException $error) {
@@ -144,7 +146,7 @@ class PostModel
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
         }
     }
-    public function update(int $id_annonce, string $titre, string $description_courte, string $description_longue, string $prix, string $photo, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $photo_id = null, ?int $categorie_id = null)
+    public function update(int $id_annonce, string $titre, string $description_courte, string $description_longue, string $prix, string $photo, int $photo_id, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $categorie_id = null)
     {
 
         // modifier date
@@ -154,7 +156,7 @@ class PostModel
         try {
             $request = $this->pdo->prepare("UPDATE announce SET titre= :titre, description_courte= :description_courte, description_longue= :description_longue , prix= :prix , photo= :photo , pays= :pays, ville= :ville, adresse= :adresse , 
             cp= :cp , membre_id= :membre_id , photo_id= :photo_id, categorie_id= :categorie_id, date_enregistrement= :date_enregistrement  WHERE id_annonce=" . $id_annonce . ";");
-
+            echo "adresse from update $adresse";
             $request->bindParam(":titre", $titre);
             $request->bindParam(":description_courte", $description_courte);
             $request->bindParam(":description_longue", $description_longue);
@@ -171,11 +173,12 @@ class PostModel
 
             $request->execute();
 
-            header("Location: ../../view/post/list.php");
+            header("Location: ../../index.php");
 
         }
         catch (PDOException $error) {
-            header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            echo "Error: $error";
+        // header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
         }
     }
     public function delete(int $id_annonce)
@@ -185,7 +188,7 @@ class PostModel
             $request->bindParam(":id_annonce", $id_annonce);
 
             $request->execute();
-            header("Location: ../../view/post/list.php");
+            header("Location: ../../index.php");
         }
         catch (PDOException $error) {
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());

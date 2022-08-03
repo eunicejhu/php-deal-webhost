@@ -7,10 +7,10 @@
 // require_once("../util/validate.php");
 
 
-// $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", "France", "Paris", '11 Avenue Richard', 75003, null, 1, 2);
+// $postController = new PostController("Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
+// $postController->update(31);
 
-
-// // $postController->create();
+// $postController->create();
 // // $postController->update(3, "Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", "France", "Paris", '11 Avenue Richard', 75003, null, 1, 2);
 
 // echo "<pre>";
@@ -34,11 +34,11 @@ class PostController
 
     private int $cp;
     private ?int $membre_id;
-    private ?int $photo_id;
+    private int $photo_id;
     private ?int $categorie_id;
 
 
-    public function __construct(string $titre, string $description_courte, string $description_longue, string $prix, string $photo, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $photo_id = null, ?int $categorie_id = null)
+    public function __construct(string $titre, string $description_courte, string $description_longue, string $prix, string $photo, int $photo_id, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $categorie_id = null)
     {
 
         $this->setTitre($titre);
@@ -61,13 +61,13 @@ class PostController
         $postModel = new PostModel();
 
 
-        $postModel->create($this->getTitre(), $this->getDescription_courte(), $this->getDescription_longue(), $this->getPrix(), $this->getPhoto(), $this->getPays(), $this->getVille(), $this->getAdresse(), $this->getCp(), $this->getMembre_id(), $this->getPhoto_id(), $this->getCategorie_id());
+        $postModel->create($this->getTitre(), $this->getDescription_courte(), $this->getDescription_longue(), $this->getPrix(), $this->getPhoto(), $this->getPhoto_id(), $this->getPays(), $this->getVille(), $this->getAdresse(), $this->getCp(), $this->getMembre_id(), $this->getCategorie_id());
     }
 
     public function update(int $id_annonce)
     {
         $postModel = new PostModel();
-        $postModel->update($id_annonce, $this->getTitre(), $this->getDescription_courte(), $this->getDescription_longue(), $this->getPrix(), $this->getPhoto(), $this->getPays(), $this->getVille(), $this->getAdresse(), $this->getCp(), $this->getMembre_id(), $this->getPhoto_id(), $this->getCategorie_id());
+        $postModel->update($id_annonce, $this->getTitre(), $this->getDescription_courte(), $this->getDescription_longue(), $this->getPrix(), $this->getPhoto(), $this->getPhoto_id(), $this->getPays(), $this->getVille(), $this->getAdresse(), $this->getCp(), $this->getMembre_id(), $this->getCategorie_id());
     }
 
     public function fetchPage(?int $offset = null, ?int $page_limit = null)
@@ -105,7 +105,7 @@ class PostController
      *
      * @return  self
      */
-    public function setTitre($titre)
+    public function setTitre(string $titre)
     {
         $this->titre = encode($titre);
         return $this;
@@ -176,7 +176,7 @@ class PostController
      */
     public function getPhoto()
     {
-        return $this->photo;
+        return decode($this->photo);
     }
 
     /**
@@ -186,7 +186,7 @@ class PostController
      */
     public function setPhoto($photo)
     {
-        $this->photo = $photo;
+        $this->photo = encode($photo);
 
         return $this;
     }
@@ -256,7 +256,7 @@ class PostController
      */
     public function getCp()
     {
-        return $this->cp;
+        return decode($this->cp);
     }
 
     /**
@@ -266,7 +266,7 @@ class PostController
      */
     public function setCp($cp)
     {
-        $this->cp = $cp;
+        $this->cp = encode($cp);
 
         return $this;
     }
