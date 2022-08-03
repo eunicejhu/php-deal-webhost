@@ -6,7 +6,6 @@
 // require_once("../util/date.php");
 // require_once("../util/validate.php");
 
-
 // $postController = new PostController("Macbook Pro", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
 // $postController->update(31);
 

@@ -32,7 +32,6 @@ if (!empty($id_post)) {
 
 <body>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -41,7 +40,7 @@ if (!empty($id_post)) {
     <div id="wrapper">
         <a href="../../index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
         <h1> <?php echo $post['titre'] ?></h1>
-        <form class=" row g-3" action="./create.php" method="POST">
+        <form class=" row g-3" action="" method="POST">
             <p>Description: <?php echo $post['description_longue'] ?></p>
             <p>Prix: <?php echo $post['prix'] ?></p>
 
@@ -55,8 +54,6 @@ if (!empty($id_post)) {
 
             </form>
     </div>
-
-
 
 </body>
 

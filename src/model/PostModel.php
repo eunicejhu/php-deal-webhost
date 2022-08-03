@@ -111,6 +111,9 @@ class PostModel
 
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
+            // setcookie("logged_id", $_COOKIE["logged_id"] ?? false);
+            // setcookie("login", $_COOKIE["login"]);
+            // setcookie("is_admin", $_COOKIE["is_admin"]);
             setcookie("offset", $offset);
             setcookie("nbPages", ceil(count($allResult) / $page_limit));
 

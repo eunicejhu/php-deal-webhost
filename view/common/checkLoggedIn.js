@@ -1,5 +1,8 @@
 let loggedIn = document.cookie.match(new RegExp("login=true"));
 let logged_id = document.cookie.match(new RegExp("logged_id=([\\d])."));
-if (!(loggedIn || logged_id)) {
-  document.location.href = "../user/login.php";
+let isLoginPage = document.location.href.match(/login.php/i);
+
+console.log(isLoginPage);
+if (loggedIn && isLoginPage) {
+  document.location.href = "/deal/index.php";
 }

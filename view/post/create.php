@@ -8,6 +8,7 @@ require_once("../../src/util/validate.php");
 require_once("../../src/model/PhotoModel.php");
 require_once("../../src/controller/PhotoController.php");
 
+$logged_id = $_COOKIE["logged_id"] ?? null;
 
 
 if (!empty($_POST["submit"])) {
@@ -20,7 +21,7 @@ if (!empty($_POST["submit"])) {
 
                     $photo_id = intval($photoController->create());
 
-                   $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id, $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], null, $_POST["categorie_id"]);
+                   $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id, $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], $logged_id, $_POST["categorie_id"]);
 
                     $postController->create();   
                     }

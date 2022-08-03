@@ -4,10 +4,10 @@ require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
 
 
-if (!empty($_GET["id"])) {
+if (!empty($_GET["id_user"])) {
 
-    $userController = new UserController("", "", "", "");
-    $userController->delete($_GET["id"]);
+    $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+    $userController->delete($_GET["id_user"]);
 }
 
 

@@ -3,10 +3,7 @@ require_once("../../src/config/database.php");
 require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
 
-if (!empty($_GET["logged_id"])) {
-   
-    setcookie("login", "true", 0, '/');
-    setcookie("logged_id", $_GET["logged_id"], 0, '/');
+if (!empty($_COOKIE["logged_id"])) {
     $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
     $user = $userController->fetchOne($_GET["logged_id"]);
 }

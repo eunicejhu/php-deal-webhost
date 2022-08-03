@@ -1,14 +1,14 @@
 #inscription {
-  width: 600px;
+  width: 400px;
   margin: 30px auto;
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-input.invalid {
-  border-color: red;
+p.invalid {
   color: red;
 }
 

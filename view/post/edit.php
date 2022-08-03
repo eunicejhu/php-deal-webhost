@@ -9,6 +9,7 @@ require_once("../../src/model/PhotoModel.php");
 require_once("../../src/controller/PhotoController.php");
 
 $id_post = $_GET["id_post"] ?? null;
+$logged_id = $_COOKIE["logged_id"] ?? null;
 
 if ($id_post) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 2, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
@@ -29,7 +30,7 @@ if(!empty($_POST["submit"])) {
                     $photo_id = $photoController->update($post["photo_id"]);
 
 
-                    $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id,  $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], null ,$_POST["categorie_id"]);
+                    $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id,  $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], $logged_id ,$_POST["categorie_id"]);
                     $postController->update($_GET["id_post"]);               
                  }
                 break;

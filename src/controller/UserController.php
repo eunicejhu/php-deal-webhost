@@ -92,6 +92,12 @@ class UserController
         $userModel = new UserModel();
         $userModel->create($this->getPseudo(), $this->getMdp(), $this->getNom(), $this->getPrenom(), $this->getTelephone(), $this->getEmail(), $this->getCivilite(), $this->getStatut(), $this->getDate_enregistrement());
     }
+
+    public function register()
+    {
+        $userModel = new UserModel();
+        $userModel->register($this->getPseudo(), $this->getMdp(), $this->getNom(), $this->getPrenom(), $this->getTelephone(), $this->getEmail(), $this->getCivilite(), $this->getStatut(), $this->getDate_enregistrement());
+    }
     public function update(int $id_membre)
     {
         $userModel = new UserModel();

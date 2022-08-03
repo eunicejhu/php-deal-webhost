@@ -7,6 +7,8 @@ require_once("../../src/controller/PostController.php");
 require_once("../../src/util/validate.php");
 
 
+$logged_id = $_COOKIE["logged_id"] ?? null;
+echo "logged_id : $$logged_id";
 $offset = $_GET["offset"] ?? 0;
 echo "offset: ". $offset;
 if (!empty($_COOKIE["logged_id"])) {
@@ -68,11 +70,22 @@ if (!empty($_COOKIE["logged_id"])) {
             <td> <?= $post["ville"]?></td>
             <td> <?= $post["adresse"]?></td>
             <td> <?= $post["cp"]?></td>
-            <td><?= $post["membre_id"] ?></td>
+            <td><?php
+
+    $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+    $user = $userController->fetchOne($post["membre_id"]);
+var_dump($user);
+    echo $user["prenom"];
+            ?></td>
             <td><?= $post["categorie_id"] ?></td>
             <td><?= $post["date_enregistrement"] ?></td>
-            <td> <a href="./edit.php?id_post=<?php echo $post["id_annonce"]; ?>">Editer</a>
+            <td>
+                <?php if(!is_null($post["membre_id"]) && $logged_id == $post["membre_id"]): ?>
+                <a href="./edit.php?id_post=<?php echo $post["id_annonce"]; ?>">Editer</a>
                 <a href="./delete.php?id_post=<?php echo $post["id_annonce"]; ?>">Supprimer</a>
+                <?php
+    endif; ?>
+
                 <a href="./view.php?id_post=<?php echo $post["id_annonce"]; ?>">Voir</a>
             </td>
 

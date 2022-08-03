@@ -1,7 +1,8 @@
 <?php
 
-$isAdmin = true;
+$isAdmin = $_COOKIE["is_admin"] ?? false;
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
+$isLoggedIn = $_COOKIE["login"] ?? false;
 
 ?>
 
@@ -24,7 +25,7 @@ $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
                         Backoffice
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Gestion des membres</a></li>
+                        <li><a class="dropdown-item" href="/deal/view/user/list.php">Gestion des membres</a></li>
                         <li><a class="dropdown-item" href="#">Gestion des catégorie</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -33,32 +34,31 @@ $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
                         <li><a class="dropdown-item" href="#">Statistique</a></li>
                     </ul>
                 </li>
+                <?php
+endif; ?>
+                <?php if ($isLoggedIn): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="./view/post/create.php">Déposer une annonce </a>
                 </li>
                 <?php
 endif; ?>
-                <?php if (isset($_COOKIE["logged_id"]) && $_COOKIE["login"]) { ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Déconexion </a>
-                </li>
+
+
+            </ul>
+            <form class="d-flex">
+                <?php if ($isLoggedIn) { ?>
+                <a class="btn btn-primary" href="/deal/view/user/logout.php">
+                    Déconexion </a>
                 <?php
 }
 else { ?>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inscription </a>
-                </li>
+                <a class="btn btn-primary" href="/deal/view/user/login.php">Login</a>
+                <a class="nav-link" href="/deal/view/user/inscription.php">Inscription </a>
                 <?php
 }?>
-
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button> -->
             </form>
         </div>
     </div>

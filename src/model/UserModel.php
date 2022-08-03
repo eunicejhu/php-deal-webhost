@@ -61,14 +61,18 @@ class UserModel
     public function login(string $pseudo, string $mdp)
     {
         try {
-            $request = $this->pdo->prepare("SELECT mdp, id_membre FROM membre WHERE pseudo='" . $pseudo . "';");
+            $request = $this->pdo->prepare("SELECT mdp, id_membre, statut  FROM membre WHERE pseudo='" . $pseudo . "';");
 
             $request->execute();
 
             $result = $request->fetch();
 
             if (password_verify($mdp, $result["mdp"])) {
-                header("Location: ../../view/user/profile.php?logged_id=" . $result["id_membre"]);
+
+                setcookie("logged_id", $result["id_membre"], 0, "/");
+                setcookie("login", "true", 0, "/");
+                setcookie("is_admin", $result["statut"], 0, "/");
+                header("Location: /deal/index.php");
                 return $result;
             }
             else {
@@ -102,11 +106,36 @@ class UserModel
 
             $request->execute();
 
+            header("Location: ../../view/user/list.php");
+
+        }
+        catch (PDOException $error) {
+            header("Location: ../../view/user/list.php?error=" . $error->getMessage());
+        }
+    }
+
+    public function register(string $pseudo, string $mdp, string $nom, string $prenom, string $telephone, string $email, string $civilite, int $statut, string $date_enregistrement)
+    {
+        try {
+            $request = $this->pdo->prepare("INSERT INTO membre(pseudo, mdp, nom, prenom, telephone, email, civilite, statut, date_enregistrement) VALUES(:pseudo, :mdp, :nom, :prenom, :telephone, :email,:civilite, :statut, :date_enregistrement)");
+
+
+            $request->bindParam(":pseudo", $pseudo);
+            $request->bindParam(":mdp", $mdp);
+            $request->bindParam(":nom", $nom);
+            $request->bindParam(":prenom", $prenom);
+            $request->bindParam(":telephone", $telephone);
+            $request->bindParam(":email", $email);
+            $request->bindParam(":civilite", $civilite);
+            $request->bindParam(":statut", $statut);
+            $request->bindParam(":date_enregistrement", $date_enregistrement);
+
+            $request->execute();
             header("Location: ../../view/user/login.php");
 
         }
         catch (PDOException $error) {
-            header("Location: ../../view/user/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            header("Location: ../../view/user/inscription.php?error=" . $error->getMessage());
         }
     }
 
@@ -153,11 +182,11 @@ class UserModel
 
             $request->execute();
 
-            header("Location: ../../view/user/profile.php?logged_id=" . $id_membre);
+            header("Location: ../../view/user/view.php?id_user=" . $id_membre);
 
         }
         catch (PDOException $error) {
-            header("Location: ../../view/user/edit.php?id=" . $id_membre . "&error=fail");
+            header("Location: ../../view/user/edit.php?error=" . $error->getMessage());
         }
     }
     public function delete(int $id_membre)
@@ -167,7 +196,7 @@ class UserModel
             $request->bindParam(":id_membre", $id_membre);
 
             $request->execute();
-            header("Location: ../../view/user/index.php");
+            header("Location: ../../view/user/list.php");
         }
         catch (PDOException $error) {
             header("Location: ../../view/user/error.php?error=" . $error->getCode() . "-" . $error->getMessage());

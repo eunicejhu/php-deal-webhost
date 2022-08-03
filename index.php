@@ -1,25 +1,33 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-// TODO: post/view.php
 // TODO: clean css file, clean list.js list.php of post
 // TODO: reset isAdmin
+// TODO: adapt <a> href when deploy
+// TODO: when table has no items, should we hide it?
 
 require_once("./src/config/database.php");
 require_once("./src/model/PostModel.php");
 require_once("./src/controller/PostController.php");
-require_once("./src/util/validate.php");
 
+require_once("./src/controller/UserController.php");
+require_once("./src/model/UserModel.php");
+require_once("./src/util/validate.php");
+require_once("./src/util/auth.php");
+
+
+
+
+$logged_id = $_COOKIE["logged_id"] ?? null;
 
 
 $offset = $_GET["offset"] ?? 0;
 $isAdmin = true;
+
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
-echo "isUser: $isUser <br>";
-if (!empty($_COOKIE["logged_id"])) {
-    $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1,"France", "Paris", '11 Avenue Richard', 75003, null, 1);
-    $posts = $postController->fetchPage($_GET["offset"] ?? 0);
-}
+$nbPages = $_COOKIE["nbPages"] ?? 1;
+
+$postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1,"France", "Paris", '11 Avenue Richard', 75003, null, 1);
+$posts = $postController->fetchPage($_GET["offset"] ?? 0);
 
 ?>
 <!doctype html>
@@ -34,7 +42,6 @@ if (!empty($_COOKIE["logged_id"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./index.css" rel="stylesheet" />
-
     <title>Deal</title>
 </head>
 
@@ -59,7 +66,7 @@ else { ?>
                 <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">Précedent</a></li>
                 <?php
 }?>
-                <?php if ($offset + 1 < $_COOKIE['nbPages']) { ?>
+                <?php if ($offset + 1 < $nbPages) { ?>
                 <li class="page-item "><a class="page-link"
                         href="./index.php?offset=<?php echo $offset + 1; ?>">Suivante</a>
                 </li>
@@ -109,11 +116,17 @@ else { ?>
                     <td> <?= $post["ville"]?></td>
                     <td> <?= $post["adresse"]?></td>
                     <td> <?= $post["cp"]?></td>
-                    <td><?= $post["membre_id"] ?></td>
+                    <td><?php
+
+                        $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+                        $user = $userController->fetchOne($post["membre_id"]);    
+                        echo $user["prenom"] . " ". $user["nom"];
+                    ?></td>
                     <td><?= $post["categorie_id"] ?></td>
                     <td><?= $post["date_enregistrement"] ?></td>
                     <td>
-                        <?php if($isAdmin) {  ?>
+
+                        <?php if($isAdmin || ($logged_id == $post["membre_id"] && !is_null($post["membre_id"]))):  ?>
                         <a href="./view/post/edit.php?id_post=<?php echo $post["id_annonce"]; ?>"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -128,8 +141,7 @@ else { ?>
                                 <path
                                     d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                             </svg></a>
-                        <?php } ?>
-
+                        <?php endif; ?>
                         <a href="./view/post/view.php?id_post=<?php echo $post["id_annonce"]; ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye-fill" viewBox="0 0 16 16">

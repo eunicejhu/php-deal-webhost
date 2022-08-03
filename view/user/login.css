@@ -24,5 +24,6 @@ input.invalid {
 }
 
 input[type="submit"] {
+  margin: 0 auto;
   margin-top: 40px;
 }
