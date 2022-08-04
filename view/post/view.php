@@ -54,19 +54,19 @@ if (!empty($id_post)) {
 
     <div id="wrapper">
         <a href="/deal/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
-        <h1> <?php echo htmlspecialchars_decode($post['titre']) ?></h1>
-        <form class=" row g-3" action="" method="POST">
-            <h4> <?php echo htmlspecialchars_decode($post['description_courte']) ?></h4>
-            <p>Description: <?php echo htmlspecialchars_decode($post['description_longue']) ?></p>
-            <img src="<?php echo $post['photo'] ?>" style="width: 400px;" alt="<?php echo $post['titre']; ?>">
-            <p>Prix: <?php echo htmlspecialchars_decode($post['prix']) ?></p>
-            <p>Categorie:
-                <?php echo htmlspecialchars_decode($category["titre"]). " | " .htmlspecialchars_decode($category["motscles"]) ?>
-            </p>
-            <p>Ville: <?php echo htmlspecialchars_decode($post['ville']) ?></p>
-            <p>Pays: <?php echo htmlspecialchars_decode($post['pays'] )?></p>
-            <p>Membre: <?php echo htmlspecialchars_decode($user['nom']. " ". $user["prenom"]) ?></p>
-            <p>Date Enregistrement: <?php echo $post['date_enregistrement'] ?></p>
+        <h1 style=" margin: 60px 0;"> <?php echo htmlspecialchars_decode($post['titre']) ?></h1>
+            <form class=" row g-3" action="" method="POST">
+                <h4> <?php echo htmlspecialchars_decode($post['description_courte']) ?></h4>
+                <p>Description: <?php echo htmlspecialchars_decode($post['description_longue']) ?></p>
+                <img src="<?php echo $post['photo'] ?>" style="width: 400px;" alt="<?php echo $post['titre']; ?>">
+                <p>Prix: <?php echo htmlspecialchars_decode($post['prix']) ?></p>
+                <p>Categorie:
+                    <?php echo htmlspecialchars_decode($category["titre"]). " | " .htmlspecialchars_decode($category["motscles"]) ?>
+                </p>
+                <p>Ville: <?php echo htmlspecialchars_decode($post['ville']) ?></p>
+                <p>Pays: <?php echo htmlspecialchars_decode($post['pays'] )?></p>
+                <p>Membre: <?php echo htmlspecialchars_decode($user['nom']. " ". $user["prenom"]) ?></p>
+                <p>Date Enregistrement: <?php echo $post['date_enregistrement'] ?></p>
 
             </form>
     </div>

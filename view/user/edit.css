@@ -1,6 +1,5 @@
 h1 {
-  text-align: center;
-  margin: 20px;
+  margin: 60px 0;
 }
 
 .invalid {
@@ -8,7 +7,6 @@ h1 {
   color: red;
 }
 
-a,
 input[type="submit"] {
   margin-top: 40px;
 }

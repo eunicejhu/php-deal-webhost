@@ -39,11 +39,11 @@ if (!empty($id_category)) {
 
     <div id="wrapper">
         <a href="./list.php" class="btn btn-outline-primary" role="button" ">Retour</a>
-        <h1> Deal | Categorie</h1>
-        <form class=" row g-3" action="" method="POST">
-            <p>Id: <?php echo $category['id_categorie'] ?></p>
-            <p>Titre: <?php echo $category['titre'] ?></p>
-            <p>Mots clés: <?php echo $category['motscles'] ?></p>
+        <h1 style=" margin: 60px 0;"> Deal | Categorie</h1>
+            <form class=" row g-3" action="" method="POST">
+                <p>Id: <?php echo $category['id_categorie'] ?></p>
+                <p>Titre: <?php echo $category['titre'] ?></p>
+                <p>Mots clés: <?php echo $category['motscles'] ?></p>
             </form>
     </div>
 

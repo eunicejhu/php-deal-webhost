@@ -56,6 +56,7 @@ if (!empty($_POST["submit"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="../../index.css" rel="stylesheet" />
+    <link href="./create.css" rel="stylesheet" />
     <script src='../common/checkLoggedIn.js'></script>
     <title>Deal | Déposer une annonce</title>
 </head>
@@ -67,6 +68,7 @@ if (!empty($_POST["submit"])) {
     </script>
     <?php include_once("../common/nav.php")?>
     <div id="wrapper">
+        <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
         <h1>FrontOffice / Déposer une announce</h1>
         <form class="row g-3" action="./create.php" method="POST">
             <div class="col-md-6">
@@ -150,7 +152,7 @@ if (!empty($_POST["submit"])) {
 
             <div class="col-12">
                 <input type="hidden" name="type" value="create" />
-                <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
+
                 <input type="submit" name="submit" class="btn btn-primary" value="Sauvegarder" />
             </div>
         </form>

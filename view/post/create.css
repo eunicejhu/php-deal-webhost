@@ -1,15 +1,6 @@
-div#wrapper {
-  min-width: 600px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-form {
-  width: 100%;
-}
-
+#wrapper,
 h1 {
-  text-align: center;
+  margin: 60px 0;
 }
 
 div.flex {

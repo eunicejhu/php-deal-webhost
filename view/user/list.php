@@ -67,10 +67,11 @@ if(!empty($_POST["submit"])) {
     <?php include_once("../common/nav.php")?>
 
     <div id="profile">
+        <a href="/deal/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
         <h1>Deal | Gestion des membre</h1>
 
 
-        <div class="table-responsive">
+        <div class=" table-responsive">
             <table class="table table-hover align-middle">
                 <thead class="table-dark">
                     <tr>
@@ -130,81 +131,81 @@ if(!empty($_POST["submit"])) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
+    </div>
+
+    <form class="row g-3 needs-validation" novalidate action="/deal/view/user/list.php?" method="POST">
+        <div class="col-md-12">
+            <p class="invalid">
+                <?php echo $error; ?>
+                <?php echo !$isValidMdp ? "<br>Mot de passe invalide" : "" ?>
+                <?php echo !$isValidTelephone ? "<br>Téléphone invalide " : ""?>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label for="pseudo" class="form-label">Pseudo</label>
+            <input id="pseudo" class="form-control" name="pseudo"
+                value="<?php echo htmlspecialchars_decode($user['pseudo'])?>" type="text" placeholder="Pseudo"
+                required />
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" value="<?php echo $user['email']?>" name="email" class="form-control" type="email"
+                placeholder="Email" required />
+            <div class="invalid-feedback">
+                Email not valid
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label" for="mdp">Votre mot de passe (Entre 9 et 13, pas de caractères
+                spécieux)</label>
+            <input id="mdp" name="mdp" type="password" required
+                class="form-control <?php echo $isValidMdp ? '' : 'invalid'; ?>" />
+            <div class="invalid-feedback">
+                Entre 9 et 13, pas de caractères spécieux
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="nom" class="form-label">Nom</label>
+            <input id="nom" name="nom" value="<?php echo $user['nom']; ?>" class="form-control" type="text"
+                placeholder="Nom" required />
         </div>
 
-        <form class="row g-3 needs-validation" novalidate action="/deal/view/user/list.php?" method="POST">
-            <div class="col-md-12">
-                <p class="invalid">
-                    <?php echo $error; ?>
-                    <?php echo !$isValidMdp ? "<br>Mot de passe invalide" : "" ?>
-                    <?php echo !$isValidTelephone ? "<br>Téléphone invalide " : ""?>
-                </p>
-            </div>
-            <div class="col-md-6">
-                <label for="pseudo" class="form-label">Pseudo</label>
-                <input id="pseudo" class="form-control" name="pseudo"
-                    value="<?php echo htmlspecialchars_decode($user['pseudo'])?>" type="text" placeholder="Pseudo"
-                    required />
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" value="<?php echo $user['email']?>" name="email" class="form-control" type="email"
-                    placeholder="Email" required />
-                <div class="invalid-feedback">
-                    Email not valid
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label" for="mdp">Votre mot de passe (Entre 9 et 13, pas de caractères
-                    spécieux)</label>
-                <input id="mdp" name="mdp" type="password" required
-                    class="form-control <?php echo $isValidMdp ? '' : 'invalid'; ?>" />
-                <div class="invalid-feedback">
-                    Entre 9 et 13, pas de caractères spécieux
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="nom" class="form-label">Nom</label>
-                <input id="nom" name="nom" value="<?php echo $user['nom']; ?>" class="form-control" type="text"
-                    placeholder="Nom" required />
-            </div>
+        <div class="col-md-6">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input id="prenom" name="prenom" value="<?php echo $user['prenom']; ?>" class="form-control" type="text"
+                placeholder="Prénom" required />
+        </div>
+        <div class="col-md-6">
+            <label for="telephone" class="form-label">Votre téléphone (numéro, longeur entre 6 et 12)</label>
+            <input id="telephone" name="telephone" type="text"
+                class="<?php echo $isValidTelephone ? '' : 'invalid'; ?> form-control" required />
 
-            <div class="col-md-6">
-                <label for="prenom" class="form-label">Prénom</label>
-                <input id="prenom" name="prenom" value="<?php echo $user['prenom']; ?>" class="form-control" type="text"
-                    placeholder="Prénom" required />
+            <div class="invalid-feedback">
+                Numéro, longeur entre 6 et 12
             </div>
-            <div class="col-md-6">
-                <label for="telephone" class="form-label">Votre téléphone (numéro, longeur entre 6 et 12)</label>
-                <input id="telephone" name="telephone" type="text"
-                    class="<?php echo $isValidTelephone ? '' : 'invalid'; ?> form-control" required />
+        </div>
 
-                <div class="invalid-feedback">
-                    Numéro, longeur entre 6 et 12
-                </div>
-            </div>
+        <div class="col-md-6">
+            <label for="civilite" class="form-label">Civilite</label>
+            <select id="civilite" name="civilite" class="form-select" aria-label="Default select example">
+                <option <?php echo $user["civilite"] == "m" ? "selected" : "" ?> value="m">Homme</option>
+                <option <?php echo $user["civilite"] == "f" ? "selected" : "" ?> value="f">Femme</option>
+            </select>
+        </div>
 
-            <div class="col-md-6">
-                <label for="civilite" class="form-label">Civilite</label>
-                <select id="civilite" name="civilite" class="form-select" aria-label="Default select example">
-                    <option <?php echo $user["civilite"] == "m" ? "selected" : "" ?> value="m">Homme</option>
-                    <option <?php echo $user["civilite"] == "f" ? "selected" : "" ?> value="f">Femme</option>
-                </select>
-            </div>
+        <div class="col-md-6">
+            <label for="statut" class="form-label">Statut</label>
+            <select id="statut" name="statut" class="form-select" aria-label="Default select example">
+                <option <?php echo $user["statut"] == "1" ? "selected" : "" ?> value="1">Admin</option>
+                <option <?php echo $user["statut"] == "0" ? "selected" : "" ?> value="0">User</option>
+            </select>
+        </div>
 
-            <div class="col-md-6">
-                <label for="statut" class="form-label">Statut</label>
-                <select id="statut" name="statut" class="form-select" aria-label="Default select example">
-                    <option <?php echo $user["statut"] == "1" ? "selected" : "" ?> value="1">Admin</option>
-                    <option <?php echo $user["statut"] == "0" ? "selected" : "" ?> value="0">User</option>
-                </select>
-            </div>
-
-            <div class="col-12">
-                <input type="hidden" name="type" value="create_user" />
-                <input name="submit" type="submit" class="btn btn-primary" value="Sauvegarder" />
-            </div>
-        </form>
+        <div class="col-12">
+            <input type="hidden" name="type" value="create_user" />
+            <input name="submit" type="submit" class="btn btn-primary" value="Sauvegarder" />
+        </div>
+    </form>
     </div>
 
 </body>

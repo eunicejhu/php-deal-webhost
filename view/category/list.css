@@ -1,3 +1,7 @@
+h1 {
+  margin: 60px auto;
+}
+
 .invalid {
   color: red;
 }

@@ -57,6 +57,7 @@ if (!empty($_POST["submit"])) {
     </script>
     <?php include_once("../common/nav.php")?>
     <div id="edit">
+        <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
         <h1>Modifier</h1>
 
         <form class="row g-3 needs-validation" novalidate
@@ -83,7 +84,7 @@ if (!empty($_POST["submit"])) {
 
             <div class="col-12 ">
                 <input type="hidden" name="type" value="update_category" />
-                <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
+
                 <input name=" submit" type="submit" class="btn btn-primary" value="Sauvegarder" />
 
 

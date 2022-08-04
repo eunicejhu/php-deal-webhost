@@ -59,11 +59,12 @@ if(!empty($_POST["submit"])) {
     </script>
     <?php include_once("../common/nav.php")?>
 
-    <div id="profile">
+    <div id="category">
+        <a href="/deal/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
         <h1>Deal | Gestion des membre</h1>
 
 
-        <div class="table-responsive col-md-12">
+        <div class=" table-responsive col-md-12">
             <table class="table table-hover align-middle">
                 <thead class="table-dark">
                     <tr>
@@ -109,31 +110,31 @@ if(!empty($_POST["submit"])) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
+    </div>
+
+    <form class="row g-3 needs-validation" novalidate action="/deal/view/category/list.php?" method="POST">
+        <div class="col-md-12">
+            <p class="invalid">
+                <?php echo $error; ?>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <label for="titre" class="form-label">Titre</label>
+            <input id="titre" class="form-control" name="titre" value="<?php echo $category['titre']?>" type="text"
+                placeholder="titre" value="" required />
+        </div>
+        <div class="col-md-12">
+            <label for="motscles" class="form-label">motscles</label>
+            <input id="motscles" value="<?php echo htmlspecialchars_decode($category['motscles']); ?>" name="motscles"
+                class="form-control" type="text" placeholder="motscles" value="" required />
         </div>
 
-        <form class="row g-3 needs-validation" novalidate action="/deal/view/category/list.php?" method="POST">
-            <div class="col-md-12">
-                <p class="invalid">
-                    <?php echo $error; ?>
-                </p>
-            </div>
-            <div class="col-md-12">
-                <label for="titre" class="form-label">Titre</label>
-                <input id="titre" class="form-control" name="titre" value="<?php echo $category['titre']?>" type="text"
-                    placeholder="titre" value="" required />
-            </div>
-            <div class="col-md-12">
-                <label for="motscles" class="form-label">motscles</label>
-                <input id="motscles" value="<?php echo htmlspecialchars_decode($category['motscles']); ?>"
-                    name="motscles" class="form-control" type="text" placeholder="motscles" value="" required />
-            </div>
 
-
-            <div class="col-12">
-                <input type="hidden" name="type" value="create_category" />
-                <input name="submit" type="submit" class="btn btn-primary" value="Créer" />
-            </div>
-        </form>
+        <div class="col-12">
+            <input type="hidden" name="type" value="create_category" />
+            <input name="submit" type="submit" class="btn btn-primary" value="Créer" />
+        </div>
+    </form>
     </div>
 
 </body>

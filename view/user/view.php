@@ -41,17 +41,17 @@ if (!empty($id_user)) {
 
     <div id="wrapper">
         <a href="./list.php" class="btn btn-outline-primary" role="button" ">Retour</a>
-        <h1> <?php echo $user['pseudo'] ?></h1>
-        <form class=" row g-3" action="" method="POST">
-            <p>Id: <?php echo $user['id_membre'] ?></p>
-            <p>Email: <?php echo $user['email'] ?></p>
-            <p>Nom: <?php echo $user['nom'] ?></p>
+        <h1 style=" margin: 60px 0;"> <?php echo $user['pseudo'] ?></h1>
+            <form class=" row g-3" action="" method="POST">
+                <p>Id: <?php echo $user['id_membre'] ?></p>
+                <p>Email: <?php echo $user['email'] ?></p>
+                <p>Nom: <?php echo $user['nom'] ?></p>
 
-            <p>Prénom: <?php echo $user['prenom'] ?></p>
-            <p>Téléphone: <?php echo $user['telephone'] ?></p>
-            <p>Civilite: <?php echo $user['civilite'] == "f" ? "Femme" : "Homme" ?></p>
-            <p>Statut: <?php echo $user['statut'] == "0" ? "User" : "Admin" ?></p>
-            <p>Date enregistrement: <?php echo $user['date_enregistrement'] ?></p>
+                <p>Prénom: <?php echo $user['prenom'] ?></p>
+                <p>Téléphone: <?php echo $user['telephone'] ?></p>
+                <p>Civilite: <?php echo $user['civilite'] == "f" ? "Femme" : "Homme" ?></p>
+                <p>Statut: <?php echo $user['statut'] == "0" ? "User" : "Admin" ?></p>
+                <p>Date enregistrement: <?php echo $user['date_enregistrement'] ?></p>
             </form>
     </div>
 
