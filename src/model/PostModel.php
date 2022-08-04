@@ -89,7 +89,7 @@ class PostModel
 
             $request->execute();
 
-            header("Location: ../../index.php");
+            header("Location: /deal/view/post/list.php");
 
         }
         catch (PDOException $error) {
@@ -111,9 +111,7 @@ class PostModel
 
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
-            // setcookie("logged_id", $_COOKIE["logged_id"] ?? false);
-            // setcookie("login", $_COOKIE["login"]);
-            // setcookie("is_admin", $_COOKIE["is_admin"]);
+
             setcookie("offset", $offset);
             setcookie("nbPages", ceil(count($allResult) / $page_limit));
 
@@ -176,7 +174,7 @@ class PostModel
 
             $request->execute();
 
-            header("Location: ../../index.php");
+            header("Location: /deal/view/post/list.php");
 
         }
         catch (PDOException $error) {
@@ -191,7 +189,7 @@ class PostModel
             $request->bindParam(":id_annonce", $id_annonce);
 
             $request->execute();
-            header("Location: ../../index.php");
+            header("Location: /deal/view/post/list.php");
         }
         catch (PDOException $error) {
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());

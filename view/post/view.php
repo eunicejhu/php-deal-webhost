@@ -3,7 +3,14 @@
 require_once("../../src/config/database.php");
 require_once("../../src/model/PostModel.php");
 require_once("../../src/controller/PostController.php");
+
 require_once("../../src/util/validate.php");
+
+require_once("../../src/controller/UserController.php");
+require_once("../../src/model/UserModel.php");
+
+require_once("../../src/controller/CategoryController.php");
+require_once("../../src/model/CategoryModel.php");
 
 $id_post = $_GET["id_post"] ?? null;
 
@@ -11,6 +18,14 @@ $id_post = $_GET["id_post"] ?? null;
 if (!empty($id_post)) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien",1, "France", "Paris", '11 Avenue Richard', 75003, null, 1, 2);
     $post = $postController->fetchOne($id_post);
+
+    if($post) {
+        $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+        $user = $userController->fetchOne($post["membre_id"]);
+
+        $categoryController = new CategoryController("", "");
+        $category = $categoryController->fetchOne($post["categorie_id"]);
+    }
 }
 
 ?>
@@ -38,19 +53,20 @@ if (!empty($id_post)) {
     <?php include_once("../common/nav.php")?>
 
     <div id="wrapper">
-        <a href="../../index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
-        <h1> <?php echo $post['titre'] ?></h1>
+        <a href="/deal/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
+        <h1> <?php echo htmlspecialchars_decode($post['titre']) ?></h1>
         <form class=" row g-3" action="" method="POST">
-            <p>Description: <?php echo $post['description_longue'] ?></p>
-            <p>Prix: <?php echo $post['prix'] ?></p>
-
-            <img src="<?php echo $post['photo'] ?>" width="400" height="400" alt="<?php echo $post['titre']; ?>">
-
-            <p>categorie_id: <?php echo $post['categorie_id'] ?></p>
-            <p>Ville: <?php echo $post['ville'] ?></p>
-            <p>Pays: <?php echo $post['pays'] ?></p>
-            <p>membre_id: <?php echo $post['membre_id'] ?></p>
-            <p>date_enregistrement: <?php echo $post['date_enregistrement'] ?></p>
+            <h4> <?php echo htmlspecialchars_decode($post['description_courte']) ?></h4>
+            <p>Description: <?php echo htmlspecialchars_decode($post['description_longue']) ?></p>
+            <img src="<?php echo $post['photo'] ?>" style="width: 400px;" alt="<?php echo $post['titre']; ?>">
+            <p>Prix: <?php echo htmlspecialchars_decode($post['prix']) ?></p>
+            <p>Categorie:
+                <?php echo htmlspecialchars_decode($category["titre"]). " | " .htmlspecialchars_decode($category["motscles"]) ?>
+            </p>
+            <p>Ville: <?php echo htmlspecialchars_decode($post['ville']) ?></p>
+            <p>Pays: <?php echo htmlspecialchars_decode($post['pays'] )?></p>
+            <p>Membre: <?php echo htmlspecialchars_decode($user['nom']. " ". $user["prenom"]) ?></p>
+            <p>Date Enregistrement: <?php echo $post['date_enregistrement'] ?></p>
 
             </form>
     </div>

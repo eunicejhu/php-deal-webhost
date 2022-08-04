@@ -10,7 +10,6 @@ if(!empty($_GET["id_user"])) {
 }
 
 
-const DEFAULT_STATUT = 0; // user
 $error = $_GET["error"] ?? false;
 
 $isValidTelephone = true;
@@ -77,8 +76,9 @@ if (!empty($_POST["submit"])) {
             </div>
             <div class="col-md-6">
                 <label for="pseudo" class="form-label">Pseudo</label>
-                <input id="pseudo" class="form-control" name="pseudo" value="<?php echo $user['pseudo']?>" type="text"
-                    placeholder="Pseudo" required />
+                <input id="pseudo" class="form-control" name="pseudo"
+                    value="<?php echo htmlspecialchars_decode($user['pseudo'])?>" type="text" placeholder="Pseudo"
+                    required />
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>

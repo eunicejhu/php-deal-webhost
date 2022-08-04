@@ -4,9 +4,8 @@ require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
 require_once("../../src/util/validate.php");
 
-$isAdmin = true;
+$isAdmin = $_COOKIE["is_admin"] ?? false;
 
-// 1. check user role
 if ($isAdmin) {
    
     $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
@@ -14,8 +13,8 @@ if ($isAdmin) {
 }
 
 // 2. Form submit
-
-const DEFAULT_STATUT = 0; // user
+$isValidTelephone = true;
+$isValidMdp = true;
 
 $error = $_GET["error"] ?? false;
 
@@ -25,13 +24,11 @@ $isValidMdp = true;
 if(!empty($_POST["submit"])) {
     switch($_POST["type"]) {
         case "create_user": {
-                if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["telephone"]) || empty($_POST["email"]) || empty($_POST["civilite"]) || empty($_POST["statut"]))) {
+                if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) || empty($_POST["prenom"]) || empty($_POST["telephone"]) || empty($_POST["email"]) || empty($_POST["civilite"]) || !isset($_POST["statut"]))) {
                     $isValidTelephone = testTelephone($_POST["telephone"]);
                     $isValidMdp = testMdp($_POST["mdp"]);
-
                     
                     if ($isValidTelephone && $isValidMdp) {
-                        echo "create user";
                         $userController = new UserController($_POST["pseudo"], $_POST["mdp"], $_POST["nom"], $_POST["prenom"], $_POST["telephone"], $_POST["email"], $_POST["civilite"], intval($_POST["statut"]));
 
                         $userController->create();
@@ -57,7 +54,6 @@ if(!empty($_POST["submit"])) {
 
     <link href="../../index.css" rel="stylesheet" />
     <link href="./list.css" rel="stylesheet" />
-    <script src='../common/checkLoggedIn.js'></script>
     <script src='/deal/view/user/list.js'></script>
     <title>Deal | Gestion des membre</title>
 </head>
@@ -145,8 +141,9 @@ if(!empty($_POST["submit"])) {
             </div>
             <div class="col-md-6">
                 <label for="pseudo" class="form-label">Pseudo</label>
-                <input id="pseudo" class="form-control" name="pseudo" value="<?php echo $user['pseudo']?>" type="text"
-                    placeholder="Pseudo" required />
+                <input id="pseudo" class="form-control" name="pseudo"
+                    value="<?php echo htmlspecialchars_decode($user['pseudo'])?>" type="text" placeholder="Pseudo"
+                    required />
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>

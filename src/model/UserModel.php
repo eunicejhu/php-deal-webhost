@@ -199,7 +199,7 @@ class UserModel
             header("Location: ../../view/user/list.php");
         }
         catch (PDOException $error) {
-            header("Location: ../../view/user/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            header("Location: ../../view/user/list.php?error=" . $error->getMessage());
         }
     }
 }

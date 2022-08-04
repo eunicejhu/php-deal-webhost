@@ -8,8 +8,15 @@ require_once("../../src/util/validate.php");
 require_once("../../src/model/PhotoModel.php");
 require_once("../../src/controller/PhotoController.php");
 
+require_once("../../src/model/CategoryModel.php");
+require_once("../../src/controller/CategoryController.php");
+
 $logged_id = $_COOKIE["logged_id"] ?? null;
 
+if($logged_id) {
+    $categoryController = new CategoryController("", "");
+    $categories = $categoryController->fetchAll();
+}
 
 if (!empty($_POST["submit"])) {
     switch ($_POST["type"]) {
@@ -20,6 +27,8 @@ if (!empty($_POST["submit"])) {
                    
 
                     $photo_id = intval($photoController->create());
+
+                    echo $_POST["categorie_id"];
 
                    $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id, $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], $logged_id, $_POST["categorie_id"]);
 
@@ -80,12 +89,15 @@ if (!empty($_POST["submit"])) {
                 <input id="prix" name="prix" type="text" class="form-control" placeholder="prix" required />
             </div>
             <div class="col-md-6">
-                <label for="categorie_id" class="form-label">categorie id</label>
-                <input id="categorie_id" name="categorie_id" class="form-control" type="text" placeholder="categorie_id"
-                    required />
+                <label for="categorie_id" class="form-label">Categorie</label>
+                <select id="categorie_id" name="categorie_id" class="form-select" aria-label="Default select example">
+                    <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category["id_categorie"] ?>">
+                        <?= htmlspecialchars_decode($category["titre"])." ".htmlspecialchars_decode($category["motscles"]) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-
-
 
             <div class="col-md-6">
                 <label for="adresse" class="form-label">Adresse</label>
@@ -137,7 +149,7 @@ if (!empty($_POST["submit"])) {
 
             <div class="col-12">
                 <input type="hidden" name="type" value="create" />
-                <a href="../../index.php" class="btn btn-outline-primary" role="button">Retour</a>
+                <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
                 <input type="submit" name="submit" class="btn btn-primary" value="Sauvegarder" />
             </div>
         </form>

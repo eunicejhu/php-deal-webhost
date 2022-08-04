@@ -8,8 +8,16 @@ require_once("../../src/util/validate.php");
 require_once("../../src/model/PhotoModel.php");
 require_once("../../src/controller/PhotoController.php");
 
+require_once("../../src/model/CategoryModel.php");
+require_once("../../src/controller/CategoryController.php");
+
 $id_post = $_GET["id_post"] ?? null;
 $logged_id = $_COOKIE["logged_id"] ?? null;
+
+if ($logged_id) {
+    $categoryController = new CategoryController("", "");
+    $categories = $categoryController->fetchAll();
+}
 
 if ($id_post) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 2, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
@@ -68,50 +76,59 @@ if(!empty($_POST["submit"])) {
         <form class="row g-3" action="./edit.php?id_post=<?php echo $id_post; ?>" method="POST">
             <div class="col-md-6">
                 <label for="titre" class="form-label">Titre</label>
-                <input id="titre" class="form-control" name="titre" value="<?php echo $post['titre']?>" type="text"
+                <input id="titre" class="form-control" name="titre"
+                    value="<?php echo htmlspecialchars_decode($post['titre'])?>" type="text"
                     placeholder="Titre de l'annonce" required />
             </div>
             <div class="col-md-6">
                 <label for="description_courte" class="form-label">Description courte</label>
                 <input id="description_courte" name="description_courte"
-                    value="<?php echo $post['description_courte']; ?>" class="form-control" type="text"
-                    placeholder="description courte de votre annonce" required />
+                    value="<?php echo htmlspecialchars_decode($post['description_courte']); ?>" class="form-control"
+                    type="text" placeholder="description courte de votre annonce" required />
             </div>
 
             <div class="col-md-6">
                 <label for="description_longue" class="form-label">Description longue</label>
                 <input id="description_longue" name="description_longue"
-                    value="<?php echo $post['description_longue']; ?>" class="form-control" type="text"
-                    placeholder="description_longue" required />
+                    value="<?php echo htmlspecialchars_decode($post['description_longue']); ?>" class="form-control"
+                    type="text" placeholder="description_longue" required />
             </div>
             <div class="col-md-6">
                 <label for="prix" class="form-label">Prix</label>
-                <input id="prix" name="prix" type="text" value="<?php echo $post['prix']?>" class="form-control"
-                    placeholder="prix" required />
+                <input id="prix" name="prix" type="text" value="<?php echo htmlspecialchars_decode($post['prix'])?>"
+                    class="form-control" placeholder="prix" required />
             </div>
+
+
             <div class="col-md-6">
-                <label for="categorie_id" class="form-label">categorie id</label>
-                <input id="categorie_id" value="<?php echo $post['categorie_id']?>" name="categorie_id"
-                    class="form-control" type="text" placeholder="categorie_id" required />
+                <label for="categorie_id" class="form-label">Categorie</label>
+                <select id="categorie_id" name="categorie_id" class="form-select" aria-label="Default select example">
+                    <?php foreach ($categories as $category): ?>
+                    <option <?php echo ($category["id_categorie"] == $post["categorie_id"]) ? "selected" : "" ?>
+                        value="<?=  $category["id_categorie"] ?>">
+                        <?=  htmlspecialchars_decode($category["titre"])." ".htmlspecialchars_decode($category["motscles"]) ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="col-md-6">
                 <label for="adresse" class="form-label">Adresse</label>
-                <input id="adresse" value="<?php echo $post['adresse']?>" name="adresse" type="textarea"
-                    class="form-control" placeholder="Adresse figurant dnas l'annonce" required />
+                <input id="adresse" value="<?php echo htmlspecialchars_decode($post['adresse'])?>" name="adresse"
+                    type="textarea" class="form-control" placeholder="Adresse figurant dnas l'annonce" required />
             </div>
 
             <div class="col-md-4">
                 <label for="pays" class="form-label">Pays</label>
-                <input id="pays" value="<?php echo $post['pays']?>" name="pays" type="text" class="form-control"
-                    placeholder="pays" required />
+                <input id="pays" value="<?php echo htmlspecialchars_decode($post['pays'])?>" name="pays" type="text"
+                    class="form-control" placeholder="pays" required />
             </div>
 
             <div class="col-md-4">
 
                 <label for="ville" class="form-label">Ville</label>
-                <input id="ville" value="<?php echo $post['ville']?>" name="ville" type="text" class="form-control"
-                    placeholder="ville" required />
+                <input id="ville" value="<?php echo htmlspecialchars_decode($post['ville'])?>" name="ville" type="text"
+                    class="form-control" placeholder="ville" required />
             </div>
             <div class="col-md-4">
                 <label for="cp" class="form-label">Code Postal</label>
@@ -152,7 +169,7 @@ if(!empty($_POST["submit"])) {
 
             <div class="col-12">
                 <input type="hidden" name="type" value="update" />
-                <a href="../../index.php" class="btn btn-outline-primary" role="button">Retour</a>
+                <a href="./list.php" class="btn btn-outline-primary" role="button">Retour</a>
                 <input name="submit" type="submit" class="btn btn-primary" value="Sauvegarder" />
             </div>
         </form>

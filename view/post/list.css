@@ -1,0 +1,21 @@
+body {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#wrapper,
+h1 {
+  margin: 60px auto;
+}
+
+#pagination,
+table {
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+td div {
+  max-width: 200px;
+  max-height: 200px;
+  overflow: scroll;
+}
