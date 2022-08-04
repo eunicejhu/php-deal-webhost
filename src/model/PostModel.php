@@ -117,8 +117,8 @@ class PostModel
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
 
-            setcookie("offset", $offset);
-            setcookie("nbPages", ceil(count($allResult) / $page_limit));
+            setcookie("offset", $offset, 0, "/");
+            setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
             return $result;
         }
@@ -142,8 +142,8 @@ class PostModel
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
 
-            setcookie("offset", $offset);
-            setcookie("nbPages", ceil(count($allResult) / $page_limit));
+            setcookie("offset", $offset, 0, "/");
+            setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
             return $result;
         }

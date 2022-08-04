@@ -30,14 +30,18 @@ $logged_id = $_COOKIE["logged_id"] ?? null;
 
 
 $offset = $_GET["offset"] ?? 0;
-$isAdmin = true;
 
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
-$nbPages = $_COOKIE["nbPages"] ?? 1;
+
 
 $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1,"France", "Paris", '11 Avenue Richard', 75003, null, 1);
 $posts = $postController->fetchPage($_GET["offset"] ?? 0);
+
+
+$nbPages = $_COOKIE["nbPages"] ?? 1;
+// var_dump($nbPages);
+// var_dump($_SERVER['HTTP_COOKIE']);
 
 ?>
 <!doctype html>
@@ -52,7 +56,6 @@ $posts = $postController->fetchPage($_GET["offset"] ?? 0);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./index.css" rel="stylesheet" />
-
 
     <title>Deal</title>
 </head>

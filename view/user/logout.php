@@ -1,13 +1,13 @@
 <?php
 
-if (isset($_COOKIE["logged_id"])) {
-    setcookie("logged_id", false, time() - 300, "/");
-}
-if (isset($_COOKIE["login"])) {
-    setcookie("login", false, time() - 300, "/");
-}
-if (isset($_COOKIE["is_admin"])) {
-    setcookie("is_admin", false, time() - 300, "/");
+if (isset($_SERVER['HTTP_COOKIE'])) {
+    $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+    foreach ($cookies as $cookie) {
+        $parts = explode('=', $cookie);
+        $name = trim($parts[0]);
+        setcookie($name, '', time() - 1000);
+        setcookie($name, '', time() - 1000, '/');
+    }
 }
 
 header("Location: /deal/index.php");
