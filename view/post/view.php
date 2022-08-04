@@ -73,4 +73,6 @@ if (!empty($id_post)) {
 
 </body>
 
+
+
 </html>

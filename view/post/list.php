@@ -21,14 +21,21 @@ $logged_id = $_COOKIE["logged_id"] ?? null;
 
 
 $offset = $_GET["offset"] ?? 0;
-$isAdmin = true;
+$isAdmin = $_COOKIE["is_admin"];
 
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
 $nbPages = $_COOKIE["nbPages"] ?? 1;
 
-$postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1,"France", "Paris", '11 Avenue Richard', 75003, null, 1);
-$posts = $postController->fetchPage($_GET["offset"] ?? 0);
+if($isAdmin) {
+    $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);   
+    $posts = $postController->fetchPage($_GET["offset"] ?? 0);
+} else if($isUser) {
+    $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
+    $posts = $postController->fetchPageForUser($logged_id, $_GET["offset"] ?? 0 );
+}
+
+
 
 ?>
 <!doctype html>
@@ -54,7 +61,10 @@ $posts = $postController->fetchPage($_GET["offset"] ?? 0);
     </script>
 
     <?php include_once("../../view/common/nav.php") ?>
-    <div id="pagination">
+    <h1>Deal | Gestion des annonces</h1>
+    <div id="pagination" class="sticky-top col-6 offset-md-6">
+
+
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <?php if ($offset - 1 >= 0) { ?>

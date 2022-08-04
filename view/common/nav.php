@@ -18,16 +18,20 @@ $isLoggedIn = $_COOKIE["login"] ?? false;
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/deal/index.php">Acceuil</a>
                 </li>
-                <?php if ($isAdmin): ?>
+                <?php if ($isUser): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Backoffice
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
                         <li><a class="dropdown-item" href="/deal/view/post/list.php">Gestion des annonces</a></li>
+                        <?php if ($isAdmin): ?>
                         <li><a class="dropdown-item" href="/deal/view/user/list.php">Gestion des membres</a></li>
                         <li><a class="dropdown-item" href="/deal/view/category/list.php">Gestion des catégorie</a></li>
+                        <?php
+    endif; ?>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

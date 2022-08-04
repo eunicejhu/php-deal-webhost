@@ -8,6 +8,11 @@
 
 // $postModel = new PostModel();
 
+// echo "<pre>";
+// var_dump($postModel->fetchPageForUser(53, null, null));
+// echo "</pre>";
+//-- create
+
 // // // -- fetchPage 
 // echo "<pre>";
 // var_dump($postModel->fetchPage());
@@ -121,6 +126,32 @@ class PostModel
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
         }
     }
+
+    public function fetchPageForUser(int $membre_id, ?int $currentPage, ?int $page_limit)
+    {
+
+        $page_limit = is_null($page_limit) ?self::PAGE_LIMIT : $page_limit;
+        $offset = is_null($currentPage) ?self::OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
+
+        try {
+            $request = $this->pdo->prepare("SELECT * from announce  WHERE membre_id=" . $membre_id . " order by date_enregistrement DESC LIMIT " . $page_limit . " OFFSET " . $offset);
+            $allRequest = $this->pdo->prepare("SELECT id_annonce from announce WHERE membre_id=" . $membre_id);
+            $allRequest->execute();
+            $request->execute();
+
+            $result = $request->fetchAll();
+            $allResult = $allRequest->fetchAll();
+
+            setcookie("offset", $offset);
+            setcookie("nbPages", ceil(count($allResult) / $page_limit));
+
+            return $result;
+        }
+        catch (PDOException $error) {
+            header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+        }
+    }
+
 
     public function fetchAll()
     {

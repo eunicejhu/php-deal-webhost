@@ -75,6 +75,13 @@ class PostController
         return $postModel->fetchPage($offset, $page_limit);
 
     }
+
+    public function fetchPageForUser(int $membre_id, ?int $offset = null, ?int $page_limit = null)
+    {
+        $postModel = new PostModel();
+        return $postModel->fetchPageForUser($membre_id, $offset, $page_limit);
+
+    }
     public function fetchAll()
     {
         $postModel = new PostModel();
