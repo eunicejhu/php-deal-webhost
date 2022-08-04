@@ -24,9 +24,9 @@ $isAdmin = $_COOKIE["is_admin"] ?? false;
 
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
-$nbPages = $_COOKIE["nbPages"] ?? 1;
 
 $posts = [];
+
 
 if($isAdmin) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);   
@@ -36,7 +36,7 @@ if($isAdmin) {
     $posts = $postController->fetchPageForUser($logged_id, $_GET["offset"] ?? 0 );
 }
 
-
+$nbPages = $_COOKIE["nbPages"] ?? 1;
 
 ?>
 <!doctype html>

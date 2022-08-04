@@ -116,7 +116,11 @@ class PostModel
 
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
+            // unset before set
+            setcookie("nbPages", "", time() - 300);
+            setcookie("offset", "", time() - 300);
 
+            // set new values to cookie
             setcookie("offset", $offset, 0, "/");
             setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
@@ -142,6 +146,12 @@ class PostModel
             $result = $request->fetchAll();
             $allResult = $allRequest->fetchAll();
 
+
+            // unset before set
+            setcookie("nbPages", "", time() - 300);
+            setcookie("offset", "", time() - 300);
+
+            // set new values to cookie (to avoid multiple same value)
             setcookie("offset", $offset, 0, "/");
             setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
