@@ -1,5 +1,6 @@
 <?php
 
+require_once("../common/env.php");
 
 require_once("../../src/config/database.php");
 require_once("../../src/model/PostModel.php");
@@ -12,8 +13,6 @@ require_once("../../src/controller/CategoryController.php");
 require_once("../../src/model/CategoryModel.php");
 
 require_once("../../src/util/validate.php");
-require_once("../../src/util/auth.php");
-
 
 
 
@@ -21,11 +20,13 @@ $logged_id = $_COOKIE["logged_id"] ?? null;
 
 
 $offset = $_GET["offset"] ?? 0;
-$isAdmin = $_COOKIE["is_admin"];
+$isAdmin = $_COOKIE["is_admin"] ?? false;
 
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
 $nbPages = $_COOKIE["nbPages"] ?? 1;
+
+$posts = [];
 
 if($isAdmin) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);   

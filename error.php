@@ -14,7 +14,7 @@
     <?php
 
 if (!empty($_GET["error"])) {
-  echo "<p>" . $_GET["error"] . "</p>";
+    echo "<p>" . $_GET["error"] . "</p>";
 }
 ?>
 </body>

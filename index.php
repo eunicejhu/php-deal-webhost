@@ -7,6 +7,11 @@
 // TODO: do category view.php
 // TODO: auth on controller!, if user are deleted, the logged user shoud be logged out
 
+require("./src/util/DotEnv.php");
+(new DotEnv( ".env"))->load();
+
+require_once("./src/util/validate.php");
+
 require_once("./src/config/database.php");
 require_once("./src/model/PostModel.php");
 require_once("./src/controller/PostController.php");
@@ -17,8 +22,6 @@ require_once("./src/model/UserModel.php");
 require_once("./src/controller/CategoryController.php");
 require_once("./src/model/CategoryModel.php");
 
-require_once("./src/util/validate.php");
-require_once("./src/util/auth.php");
 
 
 

@@ -1,22 +1,13 @@
 <?php
 
-
 class Database
 {
-
-    private const HOST = 'localhost'; // Adresse du serveur
-
-    private const DBNAME = 'deal'; // Nom de la base de données
-
-    private const USERNAME = 'root';
-
-    private const PASSWORD = ''; // /!\ MAMP le mot de passe c'est "root"
 
     public function getPDO()
     {
         try {
 
-            $pdo = new PDO("mysql:host=" . self::HOST . ';dbname=' . self::DBNAME, self::USERNAME, self::PASSWORD);
+            $pdo = new PDO(getenv("DATABASE_DNS"), getenv("DATABASE_USER"), getenv("DATABASE_PASSWORD"));
             // On précise le système de gestion de base données. 
             // Dès que l'on instancie PDO, la connexion est établie.
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -31,7 +22,7 @@ class Database
             // Ici on demande au catch de récupérer une erreur de type PDOException.
             // exit($error); exit est un alias de die(); Ces fonctions permettent l'arrêt du script courant tout en retournant l'erreur.
             //fopen() register to a file
-            header("Location: ../../view/user/error.php?error=errorDatabase");
+            header("Location: /deal/error.php?error=" . $error->getMessage());
         }
     }
 

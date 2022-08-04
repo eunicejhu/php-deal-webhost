@@ -1,5 +1,7 @@
 <?php
 
+require_once("../common/env.php");
+
 require_once("../../src/config/database.php");
 require_once("../../src/model/UserModel.php");
 require_once("../../src/controller/UserController.php");
