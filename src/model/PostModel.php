@@ -55,7 +55,7 @@
 
 class PostModel
 {
-    private PDO $pdo;
+    private $pdo;
     private const PAGE_LIMIT = 10;
     private const OFFSET_DEFAULT = 0;
 

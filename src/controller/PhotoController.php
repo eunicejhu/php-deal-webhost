@@ -12,11 +12,11 @@
 
 class PhotoController
 {
-    private string $photo1;
-    private ?string $photo2;
-    private ?string $photo3;
-    private ?string $photo4;
-    private ?string $photo5;
+    private $photo1;
+    private $photo2;
+    private $photo3;
+    private $photo4;
+    private $photo5;
 
 
     public function __construct(string $photo1, ?string $photo2 = null, ?string $photo3 = null, ?string $photo4 = null, ?string $photo5 = null)

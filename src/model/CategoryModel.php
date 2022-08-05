@@ -30,7 +30,7 @@
 
 class CategoryModel
 {
-    private PDO $pdo;
+    private $pdo;
 
     public function __construct()
     {

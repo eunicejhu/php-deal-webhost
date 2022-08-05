@@ -51,15 +51,15 @@
 
 class UserController
 {
-    private string $pseudo;
-    private string $mdp;
-    private string $nom;
-    private string $prenom;
-    private string $telephone;
-    private string $email;
-    private string $civilite;
-    private string $statut;
-    private string $date_enregistrement;
+    private $pseudo;
+    private $mdp;
+    private $nom;
+    private $prenom;
+    private $telephone;
+    private $email;
+    private $civilite;
+    private $statut;
+    private $date_enregistrement;
 
     public function login(string $pseudo, string $mdp)
     {

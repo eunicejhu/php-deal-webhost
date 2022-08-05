@@ -15,9 +15,9 @@
 
 class CategoryController
 {
-    private string $id_categorie;
-    private ?string $titre;
-    private ?string $motscles;
+    private $id_categorie;
+    private $titre;
+    private $motscles;
 
 
 

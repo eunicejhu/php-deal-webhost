@@ -22,19 +22,19 @@
 
 class PostController
 {
-    private string $titre;
-    private string $description_courte;
-    private string $description_longue;
-    private string $prix;
-    private string $photo;
-    private string $pays;
-    private string $ville;
-    private string $adresse;
+    private $titre;
+    private $description_courte;
+    private $description_longue;
+    private $prix;
+    private $photo;
+    private $pays;
+    private $ville;
+    private $adresse;
 
-    private int $cp;
-    private ?int $membre_id;
-    private int $photo_id;
-    private ?int $categorie_id;
+    private $cp;
+    private $membre_id;
+    private $photo_id;
+    private $categorie_id;
 
 
     public function __construct(string $titre, string $description_courte, string $description_longue, string $prix, string $photo, int $photo_id, string $pays, string $ville, string $adresse, int $cp, ?string $membre_id = null, ?int $categorie_id = null)
