@@ -8,7 +8,12 @@ h1 {
   margin-bottom: 20px;
 }
 
-p.invalid {
+.invalid {
+  color: red;
+}
+
+input.invalid {
+  border-color: red;
   color: red;
 }
 

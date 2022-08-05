@@ -91,7 +91,7 @@ class PhotoModel
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
         }
     }
-    public function update(int $id_photo, string $photo1, ?string $photo2 = null, ?string $photo3 = null, ?string $photo4 = null, ?string $photo5 = null): bool|int
+    public function update(int $id_photo, string $photo1, ?string $photo2 = null, ?string $photo3 = null, ?string $photo4 = null, ?string $photo5 = null)
     {
 
         try {

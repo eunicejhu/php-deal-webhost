@@ -29,8 +29,6 @@ if (!empty($_POST["submit"])) {
 
                     $photo_id = intval($photoController->create());
 
-                    echo $_POST["categorie_id"];
-
                    $postController = new PostController($_POST["titre"], $_POST["description_courte"], $_POST["description_longue"], $_POST["prix"], $_POST["photo"], $photo_id, $_POST["pays"], $_POST["ville"], $_POST["adresse"], $_POST["cp"], $logged_id, $_POST["categorie_id"]);
 
                     $postController->create();   

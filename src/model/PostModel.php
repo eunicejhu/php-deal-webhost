@@ -198,7 +198,6 @@ class PostModel
         try {
             $request = $this->pdo->prepare("UPDATE announce SET titre= :titre, description_courte= :description_courte, description_longue= :description_longue , prix= :prix , photo= :photo , pays= :pays, ville= :ville, adresse= :adresse , 
             cp= :cp , membre_id= :membre_id , photo_id= :photo_id, categorie_id= :categorie_id, date_enregistrement= :date_enregistrement  WHERE id_annonce=" . $id_annonce . ";");
-            echo "adresse from update $adresse";
             $request->bindParam(":titre", $titre);
             $request->bindParam(":description_courte", $description_courte);
             $request->bindParam(":description_longue", $description_longue);
@@ -219,8 +218,7 @@ class PostModel
 
         }
         catch (PDOException $error) {
-            echo "Error: $error";
-        // header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            header("Location: ../../view/post/error.php?error=" . $error->getMessage());
         }
     }
     public function delete(int $id_annonce)

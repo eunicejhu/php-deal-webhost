@@ -23,7 +23,6 @@ if(!empty($_POST["submit"])) {
     switch($_POST["type"]) {
         case "create_category": {
                 if (!(empty($_POST["titre"]) || empty($_POST["motscles"]))) {
-                    echo " create_category";
 
                     $categoryController = new CategoryController($_POST["titre"], $_POST["motscles"]);
                         $categoryController->create();
@@ -112,7 +111,8 @@ if(!empty($_POST["submit"])) {
             </table>
     </div>
 
-    <form class="row g-3 needs-validation" novalidate action="https://deal-zuoqin.000webhostapp.com/view/category/list.php?" method="POST">
+    <form class="row g-3 needs-validation" novalidate
+        action="https://deal-zuoqin.000webhostapp.com/view/category/list.php?" method="POST">
         <div class="col-md-12">
             <p class="invalid">
                 <?php echo $error; ?>
