@@ -22,7 +22,7 @@ class Database
             // Ici on demande au catch de récupérer une erreur de type PDOException.
             // exit($error); exit est un alias de die(); Ces fonctions permettent l'arrêt du script courant tout en retournant l'erreur.
             //fopen() register to a file
-            header("Location: /deal/error.php?error=" . $error->getMessage());
+            header("Location: https://deal-zuoqin.000webhostapp.com/error.php?error=" . $error->getMessage());
         }
     }
 

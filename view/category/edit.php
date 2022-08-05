@@ -46,7 +46,7 @@ if (!empty($_POST["submit"])) {
 
     <link href="../../index.css" rel="stylesheet" />
     <link href="./edit.css" rel="stylesheet" />
-    <script src='/deal/view/category/edit.js'></script>
+    <script src='https://deal-zuoqin.000webhostapp.com/view/category/edit.js'></script>
     <title>Deal | Gestion des categories</title>
 </head>
 

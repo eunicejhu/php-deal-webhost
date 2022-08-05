@@ -8,7 +8,7 @@ $isLoggedIn = $_COOKIE["login"] ?? false;
 
 <nav style="margin-bottom: 40px;" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/deal/index.php">Deal</a>
+        <a class="navbar-brand" href="https://deal-zuoqin.000webhostapp.com/index.php">Deal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@ $isLoggedIn = $_COOKIE["login"] ?? false;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/deal/index.php">Acceuil</a>
+                    <a class="nav-link active" aria-current="page" href="https://deal-zuoqin.000webhostapp.com/index.php">Acceuil</a>
                 </li>
                 <?php if ($isUser): ?>
                 <li class="nav-item dropdown">
@@ -26,10 +26,10 @@ $isLoggedIn = $_COOKIE["login"] ?? false;
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                        <li><a class="dropdown-item" href="/deal/view/post/list.php">Gestion des annonces</a></li>
+                        <li><a class="dropdown-item" href="https://deal-zuoqin.000webhostapp.com/view/post/list.php">Gestion des annonces</a></li>
                         <?php if ($isAdmin): ?>
-                        <li><a class="dropdown-item" href="/deal/view/user/list.php">Gestion des membres</a></li>
-                        <li><a class="dropdown-item" href="/deal/view/category/list.php">Gestion des catégorie</a></li>
+                        <li><a class="dropdown-item" href="https://deal-zuoqin.000webhostapp.com/view/user/list.php">Gestion des membres</a></li>
+                        <li><a class="dropdown-item" href="https://deal-zuoqin.000webhostapp.com/view/category/list.php">Gestion des catégorie</a></li>
                         <?php
     endif; ?>
                         <li>
@@ -44,7 +44,7 @@ $isLoggedIn = $_COOKIE["login"] ?? false;
 endif; ?>
                 <?php if ($isLoggedIn): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/deal/view/post/create.php">Déposer une annonce </a>
+                    <a class="nav-link" href="https://deal-zuoqin.000webhostapp.com/view/post/create.php">Déposer une annonce </a>
                 </li>
                 <?php
 endif; ?>
@@ -53,14 +53,14 @@ endif; ?>
             </ul>
             <form class="d-flex">
                 <?php if ($isLoggedIn) { ?>
-                <a class="btn btn-primary" href="/deal/view/user/logout.php">
+                <a class="btn btn-primary" href="https://deal-zuoqin.000webhostapp.com/view/user/logout.php">
                     Déconexion </a>
                 <?php
 }
 else { ?>
 
-                <a class="btn btn-primary" href="/deal/view/user/login.php">Login</a>
-                <a class="nav-link" href="/deal/view/user/inscription.php">Inscription </a>
+                <a class="btn btn-primary" href="https://deal-zuoqin.000webhostapp.com/view/user/login.php">Login</a>
+                <a class="nav-link" href="https://deal-zuoqin.000webhostapp.com/view/user/inscription.php">Inscription </a>
                 <?php
 }?>
                 <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

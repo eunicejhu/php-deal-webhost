@@ -54,7 +54,7 @@ if (!empty($_POST["submit"])) {
     <link href="../../index.css" rel="stylesheet" />
     <link href="./edit.css" rel="stylesheet" />
     <script src='../common/checkLoggedIn.js'></script>
-    <script src='/deal/view/user/edit.js'></script>
+    <script src='https://deal-zuoqin.000webhostapp.com/view/user/edit.js'></script>
     <title>Deal | Gestion des membre</title>
 </head>
 

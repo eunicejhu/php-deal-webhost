@@ -49,7 +49,7 @@
 
 class UserModel
 {
-    private PDO $pdo;
+    private $pdo;
 
     public function __construct()
     {
@@ -72,7 +72,7 @@ class UserModel
                 setcookie("logged_id", $result["id_membre"], 0, "/");
                 setcookie("login", "true", 0, "/");
                 setcookie("is_admin", $result["statut"], 0, "/");
-                header("Location: /deal/index.php");
+                header("Location: https://deal-zuoqin.000webhostapp.com/index.php");
                 return $result;
             }
             else {

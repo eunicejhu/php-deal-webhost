@@ -40,8 +40,7 @@ $posts = $postController->fetchPage($_GET["offset"] ?? 0);
 
 
 $nbPages = $_COOKIE["nbPages"] ?? 1;
-// var_dump($nbPages);
-// var_dump($_SERVER['HTTP_COOKIE']);
+
 
 ?>
 <!doctype html>
@@ -99,7 +98,8 @@ else { ?>
         <?php foreach ($posts as $post): ?>
 
         <div class="card mb-12" style="max-width: 800px; margin: 0 auto;">
-            <a class="item" href="/deal/view/post/view.php?id_post=<?php echo $post['id_annonce'] ?>">
+            <a class="item"
+                href="https://deal-zuoqin.000webhostapp.com/view/post/view.php?id_post=<?php echo $post['id_annonce'] ?>">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="<?php echo $post['photo'] ?>" style="padding: 20px; width: 200px;"

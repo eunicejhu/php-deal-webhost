@@ -46,7 +46,7 @@ if (!empty($_POST["submit"])) {
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <div id="login">
-        <h1><a class="nav-link" href="/deal/index.php">Deal<a></h1>
+        <h1><a class="nav-link" href="https://deal-zuoqin.000webhostapp.com/index.php">Deal<a></h1>
         <form class=" needs-validation" novalidate action="./login.php?" method="POST">
             <div class="col-md-12">
                 <label for="pseudo" class="form-label">Pseudo</label>

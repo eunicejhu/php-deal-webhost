@@ -4,5 +4,5 @@ let isLoginPage = document.location.href.match(/login.php/i);
 
 console.log(isLoginPage);
 if (loggedIn && isLoginPage) {
-  document.location.href = "/deal/index.php";
+  document.location.href = "https://deal-zuoqin.000webhostapp.com/index.php";
 }

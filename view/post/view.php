@@ -53,7 +53,7 @@ if (!empty($id_post)) {
     <?php include_once("../common/nav.php")?>
 
     <div id="wrapper">
-        <a href="/deal/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
+        <a href="https://deal-zuoqin.000webhostapp.com/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
         <h1 style=" margin: 60px 0;"> <?php echo htmlspecialchars_decode($post['titre']) ?></h1>
             <form class=" row g-3" action="" method="POST">
                 <h4> <?php echo htmlspecialchars_decode($post['description_courte']) ?></h4>

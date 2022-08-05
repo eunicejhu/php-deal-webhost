@@ -1,6 +1,6 @@
 let isAdmin = document.cookie.match(/is_admin=1/i);
 if (!isAdmin) {
-  document.location.href = "/deal/index.php";
+  document.location.href = "https://deal-zuoqin.000webhostapp.com/index.php";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
