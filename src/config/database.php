@@ -7,7 +7,7 @@ class Database
     {
         try {
 
-            $pdo = new PDO(getenv("DATABASE_DNS"), getenv("DATABASE_USER"), getenv("DATABASE_PASSWORD"));
+            $pdo = new PDO($_ENV["DATABASE_DNS"], $_ENV["DATABASE_USER"], $_ENV["DATABASE_PASSWORD"]);
             // On précise le système de gestion de base données. 
             // Dès que l'on instancie PDO, la connexion est établie.
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
