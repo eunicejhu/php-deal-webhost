@@ -66,7 +66,7 @@ $nbPages = $_COOKIE["nbPages"] ?? 1;
     </script>
     <script src="./index.js"></script>
     <?php include_once("./view/common/nav.php") ?>
-    <div id="pagination" class="sticky-top col-6 offset-md-6">
+    <div id="pagination" class="sticky-top col-ms-6 offset-ms-6 col-md-6 offset-md-6 col-6 offset-6">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <?php if ($offset - 1 >= 0) { ?>
@@ -102,7 +102,8 @@ else { ?>
                 href="https://deal-zuoqin.000webhostapp.com/view/post/view.php?id_post=<?php echo $post['id_annonce'] ?>">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="<?php echo $post['photo'] ?>" style="padding: 20px; width: 200px;"
+                        <img src="<?php echo $post['photo'] ?>"
+                            style="padding: 20px; width: 200px; height: 220px;object-fit: contain;"
                             class="img-fluid rounded-start" alt="<?php echo $post['titre']; ?>">
                     </div>
                     <div class="col-md-8 verticle-middle">

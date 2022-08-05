@@ -13,6 +13,10 @@ table {
   margin-top: 40px;
 }
 
+img {
+  object-fit: contain;
+}
+
 td div {
   max-width: 200px;
   max-height: 200px;

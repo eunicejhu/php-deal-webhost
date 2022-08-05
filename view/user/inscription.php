@@ -51,25 +51,25 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
     <div id="inscription">
         <h1><a class="nav-link" href="https://deal-zuoqin.000webhostapp.com/index.php">Deal<a></h1>
         <form class="needs-validation" novalidate action="./inscription.php?" method="POST">
-            <div class=" col-md-12 ">
+            <div class=" col-md-12 col-ms-12 ">
 
                 <p class="invalid">
                     <?php echo $error; ?>
                 </p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
 
                 <label for="pseudo" class="form-label">Pseudo</label>
                 <input id="pseudo" class="form-control" name="pseudo" type="text" placeholder="Pseudo" required />
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label for="email" class="form-label">Email</label>
                 <input id="email" name="email" class="form-control" type="email" placeholder="Email" required />
                 <div class="invalid-feedback">
                     Email not valid
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label class="form-label" for="mdp">Votre mot de passe (Entre 9 et 13, pas de caractères
                     spécieux)</label>
                 <input id="mdp" name="mdp" type="password" required
@@ -78,16 +78,16 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
                     Entre 9 et 13, pas de caractères spécieux
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label for="nom" class="form-label">Nom</label>
                 <input id="nom" name="nom" class="form-control" type="text" placeholder="Nom" required />
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label for="prenom" class="form-label">Prénom</label>
                 <input id="prenom" name="prenom" class="form-control" type="text" placeholder="Prénom" required />
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label for="telephone" class="form-label">Votre téléphone (numéro, longeur entre 6 et 12)</label>
                 <input id="telephone" name="telephone" type="text"
                     class="<?php echo $isValidTelephone ? '' : 'invalid'; ?> form-control" required />
@@ -98,7 +98,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
             </div>
 
 
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <label for="civilite" class="form-label">Civilite</label>
                 <select id="civilite" name="civilite" class="form-select" aria-label="Default select example">
                     <option value="m">Homme</option>
@@ -107,7 +107,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
             </div>
 
 
-            <div class="col-md-12">
+            <div class="col-md-12 col-ms-12">
                 <input type="hidden" name="type" value="register" />
                 <input name="submit" type="submit" class="btn btn-primary form-control" value="S'inscrire" />
             </div>
