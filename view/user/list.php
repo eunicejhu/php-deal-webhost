@@ -55,7 +55,8 @@ if(!empty($_POST["submit"])) {
 
     <link href="../../index.css" rel="stylesheet" />
     <link href="./list.css" rel="stylesheet" />
-    <script src='https://deal-zuoqin.000webhostapp.com/view/user/list.js'></script>
+    <script src='../../view/common/checkIsAdmin.js'></script>
+    <script src='../../view/common/validateForm.js'></script>
     <title>Deal | Gestion des membre</title>
 </head>
 
@@ -67,7 +68,7 @@ if(!empty($_POST["submit"])) {
     <?php include_once("../common/nav.php")?>
 
     <div id="profile">
-        <a href="https://deal-zuoqin.000webhostapp.com/index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
+        <a href="../../index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
         <h1>Deal | Gestion des membre</h1>
 
 
@@ -133,7 +134,7 @@ if(!empty($_POST["submit"])) {
             </table>
     </div>
 
-    <form class="row g-3 needs-validation" novalidate action="https://deal-zuoqin.000webhostapp.com/view/user/list.php?" method="POST">
+    <form class="row g-3 needs-validation" novalidate action="../../view/user/list.php?" method="POST">
         <div class="col-md-12">
             <p class="invalid">
                 <?php echo $error; ?>

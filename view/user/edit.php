@@ -53,8 +53,8 @@ if (!empty($_POST["submit"])) {
 
     <link href="../../index.css" rel="stylesheet" />
     <link href="./edit.css" rel="stylesheet" />
-    <script src='../common/checkLoggedIn.js'></script>
-    <script src='https://deal-zuoqin.000webhostapp.com/view/user/edit.js'></script>
+    <script src='../common/checkIsAdmin.js'></script>
+    <script src='../../view/common/validateForm.js'></script>
     <title>Deal | Gestion des membre</title>
 </head>
 

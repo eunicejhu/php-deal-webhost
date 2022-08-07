@@ -94,7 +94,7 @@ class PostModel
 
             $request->execute();
 
-            header("Location: https://deal-zuoqin.000webhostapp.com/view/post/list.php");
+            header("Location: ../../view/post/list.php");
 
         }
         catch (PDOException $error) {
@@ -214,7 +214,7 @@ class PostModel
 
             $request->execute();
 
-            header("Location: https://deal-zuoqin.000webhostapp.com/view/post/list.php");
+            header("Location: ../../view/post/list.php");
 
         }
         catch (PDOException $error) {
@@ -228,7 +228,7 @@ class PostModel
             $request->bindParam(":id_annonce", $id_annonce);
 
             $request->execute();
-            header("Location: https://deal-zuoqin.000webhostapp.com/view/post/list.php");
+            header("Location: ../../view/post/list.php");
         }
         catch (PDOException $error) {
             header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());

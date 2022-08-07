@@ -38,8 +38,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="../../index.css" rel="stylesheet" />
     <link href="./inscription.css" rel="stylesheet" />
-    <script src='./inscription.js'></script>
-    <!-- <script src='../common/checkLoggedIn.js'></script> -->
+    <script src='../common/validateForm.js'></script>
     <title>Deal | Inscription</title>
 </head>
 
@@ -49,7 +48,7 @@ if (!(empty($_POST["pseudo"]) || empty($_POST["mdp"]) || empty($_POST["nom"]) ||
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <div id="inscription">
-        <h1><a class="nav-link" href="https://deal-zuoqin.000webhostapp.com/index.php">Deal<a></h1>
+        <h1><a class="nav-link" href="../../index.php">Deal<a></h1>
         <form class="needs-validation" novalidate action="./inscription.php?" method="POST">
             <div class=" col-md-12 col-ms-12 ">
 

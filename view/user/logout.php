@@ -10,6 +10,6 @@ if (isset($_SERVER['HTTP_COOKIE'])) {
     }
 }
 
-header("Location: https://deal-zuoqin.000webhostapp.com/index.php");
+header("Location: ../../index.php");
 
 ?>
