@@ -69,10 +69,10 @@ class PostController
         $postModel->update($id_annonce, $this->getTitre(), $this->getDescription_courte(), $this->getDescription_longue(), $this->getPrix(), $this->getPhoto(), $this->getPhoto_id(), $this->getPays(), $this->getVille(), $this->getAdresse(), $this->getCp(), $this->getMembre_id(), $this->getCategorie_id());
     }
 
-    public function fetchPage(?int $offset = null, ?int $page_limit = null)
+    public function fetchPage(int $currentPage, int $page_limit)
     {
         $postModel = new PostModel();
-        return $postModel->fetchPage($offset, $page_limit);
+        return $postModel->fetchPage($currentPage, $page_limit);
 
     }
 

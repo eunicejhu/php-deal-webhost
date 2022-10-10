@@ -8,7 +8,7 @@
 // TODO: auth on controller!, if user are deleted, the logged user shoud be logged out
 
 define('PAGE_LIMIT', 10);
-define('OFFSET_DEFAULT', 0);
+define('CURRENT_PAGE_DEFAULT', 1);
 
 
 require("./src/util/DotEnv.php");
@@ -36,12 +36,12 @@ $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
 
 $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
-$posts = $postController->fetchPage($_GET["offset"] ?? 0);
+$posts = $postController->fetchPage($_GET["currentPage"] ?? CURRENT_PAGE_DEFAULT, PAGE_LIMIT);
 
 $postsTotalCount = count($postController->fetchAll());
 
 $nbPages = $postsTotalCount > 0 ? ceil($postsTotalCount / PAGE_LIMIT) : 1;
-$offset = $_COOKIE["offset"] ?? 0;
+$currentPage = $_GET["currentPage"] ?? CURRENT_PAGE_DEFAULT;
 
 ?>
 <!doctype html>
@@ -70,9 +70,9 @@ $offset = $_COOKIE["offset"] ?? 0;
     <div id="pagination" class="sticky-top col-ms-6 offset-ms-6 col-md-6 offset-md-6 col-6 offset-6">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                <?php if ($offset - 1 >= 0) { ?>
+                <?php if ($currentPage - 1 > 0) { ?>
                 <li class="page-item"><a class="page-link"
-                        href="./index.php?offset=<?php echo $offset - 1; ?>">Précedent</a>
+                        href="./index.php?currentPage=<?php echo $currentPage - 1; ?>">Précedent</a>
                 </li>
                 <?php
 }
@@ -80,9 +80,9 @@ else { ?>
                 <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">Précedent</a></li>
                 <?php
 }?>
-                <?php if ($offset + 1 < $nbPages) { ?>
+                <?php if ($currentPage + 1 <= $nbPages) { ?>
                 <li class="page-item "><a class="page-link"
-                        href="./index.php?offset=<?php echo $offset + 1; ?>">Suivante</a>
+                        href="./index.php?currentPage=<?php echo $currentPage + 1; ?>">Suivante</a>
                 </li>
                 <?php
 }

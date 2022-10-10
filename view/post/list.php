@@ -1,5 +1,8 @@
 <?php
 
+define('PAGE_LIMIT', 10);
+define('CURRENT_PAGE_DEFAULT', 1);
+
 require_once("../common/env.php");
 
 require_once("../../src/config/database.php");
@@ -26,14 +29,15 @@ $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
 
 $posts = [];
+$currentPage = $_GET["currentPage"] ?? CURRENT_PAGE_DEFAULT;
 
-
-if($isAdmin) {
-    $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);   
-    $posts = $postController->fetchPage($_GET["offset"] ?? 0);
-} else if($isUser) {
+if ($isAdmin) {
     $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
-    $posts = $postController->fetchPageForUser($logged_id, $_GET["offset"] ?? 0 );
+    $posts = $postController->fetchPage($currentPage, PAGE_LIMIT);
+}
+else if ($isUser) {
+    $postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
+    $posts = $postController->fetchPageForUser($logged_id, $currentPage, PAGE_LIMIT);
 }
 
 $nbPages = $_COOKIE["nbPages"] ?? 1;
@@ -61,7 +65,7 @@ $nbPages = $_COOKIE["nbPages"] ?? 1;
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
-    <?php include_once("../../view/common/nav.php") ?>
+    <?php include_once("../../view/common/nav.php")?>
     <a href="../../index.php" class="btn btn-outline-primary" role="button" ">Retour</a>
     <h1>Deal | Gestion des annonces</h1>
     <div id=" pagination" class="sticky-top col-6 offset-md-6">
@@ -69,9 +73,9 @@ $nbPages = $_COOKIE["nbPages"] ?? 1;
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                <?php if ($offset - 1 >= 0) { ?>
+                <?php if ($currentPage - 1 > 0) { ?>
                 <li class="page-item"><a class="page-link"
-                        href="./list.php?offset=<?php echo $offset - 1; ?>">Précedent</a>
+                        href="./list.php?currentPage=<?php echo $currentPage - 1; ?>">Précedent</a>
                 </li>
                 <?php
 }
@@ -79,9 +83,9 @@ else { ?>
                 <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">Précedent</a></li>
                 <?php
 }?>
-                <?php if ($offset + 1 < $nbPages) { ?>
+                <?php if ($currentPage + 1 <= $nbPages) { ?>
                 <li class="page-item "><a class="page-link"
-                        href="./list.php?offset=<?php echo $offset + 1; ?>">Suivante</a>
+                        href="./list.php?currentPage=<?php echo $currentPage + 1; ?>">Suivante</a>
                 </li>
                 <?php
 }
@@ -117,61 +121,84 @@ else { ?>
                 <tbody>
                     <?php foreach ($posts as $post): ?>
                     <tr>
-                        <td><?= $post["id_annonce"] ?></td>
                         <td>
-                            <div><?= htmlspecialchars_decode($post["titre"]) ?></div>
+                            <?= $post["id_annonce"]?>
                         </td>
                         <td>
-                            <div><?= htmlspecialchars_decode($post["description_courte"])?></div>
+                            <div>
+                                <?= htmlspecialchars_decode($post["titre"])?>
+                            </div>
                         </td>
                         <td>
-                            <div><?= htmlspecialchars_decode($post["description_longue"])?></div>
+                            <div>
+                                <?= htmlspecialchars_decode($post["description_courte"])?>
+                            </div>
                         </td>
                         <td>
-                            <div><?= htmlspecialchars_decode($post["prix"])?></div>
+                            <div>
+                                <?= htmlspecialchars_decode($post["description_longue"])?>
+                            </div>
                         </td>
                         <td>
-                            <div><img src="<?php echo $post['photo'] ?>" width="200" height="200"
+                            <div>
+                                <?= htmlspecialchars_decode($post["prix"])?>
+                            </div>
+                        </td>
+                        <td>
+                            <div><img src="<?php echo $post['photo']?>" width="200" height="200"
                                     alt="<?php echo $post['titre']; ?>"></div>
                         </td>
-                        <td> <?= htmlspecialchars_decode($post["pays"])?></td>
-                        <td> <?= htmlspecialchars_decode($post["ville"])?></td>
                         <td>
-                            <div><?= htmlspecialchars_decode($post["adresse"])?></div>
+                            <?= htmlspecialchars_decode($post["pays"])?>
                         </td>
-                        <td> <?= $post["cp"]?></td>
+                        <td>
+                            <?= htmlspecialchars_decode($post["ville"])?>
+                        </td>
+                        <td>
+                            <div>
+                                <?= htmlspecialchars_decode($post["adresse"])?>
+                            </div>
+                        </td>
+                        <td>
+                            <?= $post["cp"]?>
+                        </td>
                         <td>
                             <?php
 
-                        $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
-                        $user = $userController->fetchOne($post["membre_id"]);
-                        
-                       
-                    ?>
-                            <?php if($user): ?>
-                            <a class="nav-link"
-                                href="../../view/user/view.php?id_user=<?php echo $user["id_membre"] ?>"><?php echo  $user["prenom"] . " " . $user["nom"] ?>
+    $userController = new UserController("", "123456789", "", "", "12345678", "", "", 1);
+    $user = $userController->fetchOne($post["membre_id"]);
+
+
+?>
+                            <?php if ($user): ?>
+                            <a class="nav-link" href="../../view/user/view.php?id_user=<?php echo $user['id_membre']?>">
+                                <?php echo $user["prenom"] . " " . $user["nom"]?>
                             </a>
-                            <?php endif; ?>
+                            <?php
+    endif; ?>
 
                         </td>
 
                         <td>
                             <?php
-                        $categoryController = new CategoryController("", "");
-                        $category = $categoryController->fetchOne($post["categorie_id"]);
-                    ?>
-                            <?php if($category): ?>
+    $categoryController = new CategoryController("", "");
+    $category = $categoryController->fetchOne($post["categorie_id"]);
+?>
+                            <?php if ($category): ?>
                             <a class="nav-link"
-                                href="../../view/category/view.php?id_category=<?php echo $category["id_categorie"] ?>"><?php echo  $category["titre"] ?>
+                                href="../../view/category/view.php?id_category=<?php echo $category['id_categorie']?>">
+                                <?php echo $category["titre"]?>
                             </a>
-                            <?php endif; ?>
+                            <?php
+    endif; ?>
                         </td>
-                        <td><?= $post["date_enregistrement"] ?></td>
+                        <td>
+                            <?= $post["date_enregistrement"]?>
+                        </td>
                         <td>
 
-                            <?php if($isAdmin || ($logged_id == $post["membre_id"] && !is_null($post["membre_id"]))):  ?>
-                            <a href="../../view/post/edit.php?id_post=<?php echo $post["id_annonce"]; ?>"><svg
+                            <?php if ($isAdmin || ($logged_id == $post["membre_id"] && !is_null($post["membre_id"]))): ?>
+                            <a href="../../view/post/edit.php?id_post= <?php echo $post['id_annonce']; ?>"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -179,14 +206,15 @@ else { ?>
                                     <path fill-rule="evenodd"
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                 </svg></a>
-                            <a href="../../view/post/delete.php?id_post=<?php echo $post["id_annonce"]; ?>"><svg
+                            <a href="../../view/post/delete.php?id_post=<?php echo $post['id_annonce']; ?>"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                     <path
                                         d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                 </svg></a>
-                            <?php endif; ?>
-                            <a href="../../view/post/view.php?id_post=<?php echo $post["id_annonce"]; ?>">
+                            <?php
+    endif; ?>
+                            <a href="../../view/post/view.php?id_post=<?php echo $post['id_annonce']; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-eye-fill" viewBox="0 0 16 16">
                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
@@ -196,7 +224,8 @@ else { ?>
                         </td>
 
                     </tr>
-                    <?php endforeach; ?>
+                    <?php
+endforeach; ?>
                 </tbody>
             </table>
 

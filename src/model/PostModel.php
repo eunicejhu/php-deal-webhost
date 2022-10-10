@@ -100,14 +100,12 @@ class PostModel
         }
     }
 
-    public function fetchPage(?int $currentPage, ?int $page_limit)
+    public function fetchPage(int $currentPage, int $page_limit)
     {
 
-        $page_limit = is_null($page_limit) ? PAGE_LIMIT : $page_limit;
-        $offset = is_null($currentPage) ? OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
 
         try {
-            $request = $this->pdo->prepare("SELECT * from announce order by date_enregistrement DESC LIMIT " . $page_limit . " OFFSET " . $offset);
+            $request = $this->pdo->prepare("SELECT * from announce order by date_enregistrement DESC LIMIT " . $page_limit . " OFFSET " . ($currentPage - 1) * $page_limit);
             $allRequest = $this->pdo->prepare("SELECT id_annonce from announce ");
             $allRequest->execute();
             $request->execute();
@@ -116,12 +114,11 @@ class PostModel
             $allResult = $allRequest->fetchAll();
             // unset before set
             setcookie("nbPages", "", time() - 300);
-            setcookie("offset", "", time() - 300);
-            setcookie("PAGE_LIMIT", "", time() - 300);
+            setcookie("currentPage", "", time() - 300);
+
 
             // set new values to cookie
-            setcookie("PAGE_LIMIT", PAGE_LIMIT, 0, "/");
-            setcookie("offset", $offset, 0, "/");
+            setcookie("currentPage", $currentPage, 0, "/");
             setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
             return $result;
