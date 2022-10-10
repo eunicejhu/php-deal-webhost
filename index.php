@@ -51,13 +51,40 @@ $currentPage = $_GET["currentPage"] ?? CURRENT_PAGE_DEFAULT;
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="e-commerce website for Apple products">
+
+
+    <!-- Primary Meta Tags -->
+    <title>Deal | Price tag platform for Apple products</title>
+    <meta name="title" content="Deal — Price tag platform for Apple products">
+    <meta name="description"
+        content="e-commerce website for Apple products. iMac, Macbook Pro, iPhone, Apple Watch, Magic Mouse etc">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deal-zuoqin.000webhostapp.com/">
+    <meta property="og:title" content="Deal — Price tag platform for Apple products!">
+    <meta property="og:description"
+        content="E-commerce website for Apple products. iMac, Macbook Pro, iPhone, Apple Watch, Magic Mouse etc">
+    <meta property="og:image" content="./assets/img/deal-apple.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deal-zuoqin.000webhostapp.com/">
+    <meta property="twitter:title" content="Deal — Price tag platform for Apple products!">
+    <!-- <meta property="twitter:site" content="" > -->
+    <meta property="twitter:creator" content="@eunicejhu">
+    <meta property="twitter:description"
+        content="E-commerce website for Apple products. iMac, Macbook Pro, iPhone, Apple Watch, Magic Mouse etc">
+    <meta property="twitter:image" content="./assets/img/deal-apple.png">
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./index.css" rel="stylesheet" />
 
-    <title>Deal</title>
+
 </head>
 
 <body>

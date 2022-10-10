@@ -1,0 +1,19 @@
+{
+  "name": "webhost",
+  "version": "1.0.0",
+  "description": "## Written in PHP 8.1.6, MariaDB 10.4.21, Bootrap 5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eunicejhu/php-deal-webhost.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eunicejhu/php-deal-webhost/issues"
+  },
+  "homepage": "https://github.com/eunicejhu/php-deal-webhost#readme"
+}
