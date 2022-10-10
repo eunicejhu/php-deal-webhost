@@ -56,8 +56,6 @@
 class PostModel
 {
     private $pdo;
-    private const PAGE_LIMIT = 10;
-    private const OFFSET_DEFAULT = 0;
 
     public function __construct()
     {
@@ -105,8 +103,8 @@ class PostModel
     public function fetchPage(?int $currentPage, ?int $page_limit)
     {
 
-        $page_limit = is_null($page_limit) ?self::PAGE_LIMIT : $page_limit;
-        $offset = is_null($currentPage) ?self::OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
+        $page_limit = is_null($page_limit) ? PAGE_LIMIT : $page_limit;
+        $offset = is_null($currentPage) ? OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
 
         try {
             $request = $this->pdo->prepare("SELECT * from announce order by date_enregistrement DESC LIMIT " . $page_limit . " OFFSET " . $offset);
@@ -119,8 +117,10 @@ class PostModel
             // unset before set
             setcookie("nbPages", "", time() - 300);
             setcookie("offset", "", time() - 300);
+            setcookie("PAGE_LIMIT", "", time() - 300);
 
             // set new values to cookie
+            setcookie("PAGE_LIMIT", PAGE_LIMIT, 0, "/");
             setcookie("offset", $offset, 0, "/");
             setcookie("nbPages", ceil(count($allResult) / $page_limit), 0, "/");
 
@@ -134,8 +134,8 @@ class PostModel
     public function fetchPageForUser(int $membre_id, ?int $currentPage, ?int $page_limit)
     {
 
-        $page_limit = is_null($page_limit) ?self::PAGE_LIMIT : $page_limit;
-        $offset = is_null($currentPage) ?self::OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
+        $page_limit = is_null($page_limit) ? PAGE_LIMIT : $page_limit;
+        $offset = is_null($currentPage) ? OFFSET_DEFAULT * $page_limit : $currentPage * $page_limit;
 
         try {
             $request = $this->pdo->prepare("SELECT * from announce  WHERE membre_id=" . $membre_id . " order by date_enregistrement DESC LIMIT " . $page_limit . " OFFSET " . $offset);
@@ -173,7 +173,7 @@ class PostModel
             return $request->fetchAll();
         }
         catch (PDOException $error) {
-            header("Location: ../../view/post/list.php?error=" . $error->getCode() . "-" . $error->getMessage());
+            header("Location: ../../view/post/error.php?error=" . $error->getCode() . "-" . $error->getMessage());
         }
     }
     public function fetchOne(int $id)

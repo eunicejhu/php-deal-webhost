@@ -7,8 +7,13 @@
 // TODO: do category view.php
 // TODO: auth on controller!, if user are deleted, the logged user shoud be logged out
 
+define('PAGE_LIMIT', 10);
+define('OFFSET_DEFAULT', 0);
+
+var_dump(PAGE_LIMIT);
+
 require("./src/util/DotEnv.php");
-(new DotEnv( ".env"))->load();
+(new DotEnv(".env"))->load();
 
 require_once("./src/util/validate.php");
 
@@ -27,20 +32,17 @@ require_once("./src/model/CategoryModel.php");
 
 
 $logged_id = $_COOKIE["logged_id"] ?? null;
-
-
-$offset = $_GET["offset"] ?? 0;
-
 $isUser = isset($_COOKIE["logged_id"]) && $_COOKIE["login"];
 
 
 
-$postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1,"France", "Paris", '11 Avenue Richard', 75003, null, 1);
+$postController = new PostController("Macbook Pro 13", "pc", "pc Apple", "1299€", "photo_lien", 1, "France", "Paris", '11 Avenue Richard', 75003, null, 1);
 $posts = $postController->fetchPage($_GET["offset"] ?? 0);
 
+$postsTotalCount = count($postController->fetchAll());
 
-$nbPages = $_COOKIE["nbPages"] ?? 1;
-
+$nbPages = $postsTotalCount > 0 ? ceil($postsTotalCount / PAGE_LIMIT) : 1;
+$offset = $_COOKIE["offset"] ?? 0;
 
 ?>
 <!doctype html>
@@ -65,7 +67,7 @@ $nbPages = $_COOKIE["nbPages"] ?? 1;
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="./index.js"></script>
-    <?php include_once("./view/common/nav.php") ?>
+    <?php include_once("./view/common/nav.php")?>
     <div id="pagination" class="sticky-top col-ms-6 offset-ms-6 col-md-6 offset-md-6 col-6 offset-6">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
@@ -86,7 +88,8 @@ else { ?>
                 <?php
 }
 else { ?>
-                <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">Suivante</a></li>
+                <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">Suivante</a>
+                </li>
                 <?php
 }?>
 
@@ -98,19 +101,24 @@ else { ?>
         <?php foreach ($posts as $post): ?>
 
         <div class="card mb-12" style="max-width: 800px; margin: 0 auto;">
-            <a class="item" href="./view/post/view.php?id_post=<?php echo $post['id_annonce'] ?>">
+            <a class="item" href="./view/post/view.php?id_post=<?php echo $post['id_annonce']?>">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="<?php echo $post['photo'] ?>"
+                        <img src="<?php echo $post['photo']?>"
                             style="padding: 20px; width: 200px; height: 220px;object-fit: contain;"
                             class="img-fluid rounded-start" alt="<?php echo $post['titre']; ?>">
                     </div>
                     <div class="col-md-8 verticle-middle">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars_decode($post["titre"]) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars_decode($post["description_courte"])?></p>
-                            <p class="card-text"><small
-                                    class="text-muted"><?= htmlspecialchars_decode($post["prix"])?></small></p>
+                            <h5 class="card-title">
+                                <?= htmlspecialchars_decode($post["titre"])?>
+                            </h5>
+                            <p class="card-text">
+                                <?= htmlspecialchars_decode($post["description_courte"])?>
+                            </p>
+                            <p class="card-text"><small class="text-muted">
+                                    <?= htmlspecialchars_decode($post["prix"])?>
+                                </small></p>
                         </div>
                     </div>
                 </div>
@@ -119,7 +127,8 @@ else { ?>
 
 
 
-        <?php endforeach; ?>
+        <?php
+endforeach; ?>
 
 
     </div>
@@ -128,6 +137,6 @@ else { ?>
 
 </body>
 
-<?php require_once("./view/common/footer.php") ?>
+<?php require_once("./view/common/footer.php")?>
 
 </html>
