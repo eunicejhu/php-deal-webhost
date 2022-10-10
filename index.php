@@ -10,7 +10,6 @@
 define('PAGE_LIMIT', 10);
 define('OFFSET_DEFAULT', 0);
 
-var_dump(PAGE_LIMIT);
 
 require("./src/util/DotEnv.php");
 (new DotEnv(".env"))->load();
